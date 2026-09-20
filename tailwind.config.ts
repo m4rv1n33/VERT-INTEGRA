@@ -10,12 +10,16 @@ export default {
 				"panel-highlight": "var(--bg-panel-highlight)",
 				separator: "var(--bg-separator)",
 				button: "var(--bg-button)",
-				"panel-alt": "var(--bg-button)",
+				"panel-alt": "var(--bg-hover)",
+				hover: "var(--bg-hover)",
 				badge: "var(--bg-badge)",
 			},
 			borderColor: {
 				separator: "var(--bg-separator)",
 				button: "var(--bg-button)",
+				strong: "var(--bg-border-strong)",
+				muted: "var(--fg-muted)",
+				accent: "var(--accent)",
 			},
 			textColor: {
 				foreground: "var(--fg)",

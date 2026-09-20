@@ -186,7 +186,8 @@
 	--fg: #f4f4f5; // zinc-100
 	--fg-muted: #a1a1aa; // zinc-400
 	--fg-on-accent: hsl(0, 0%, 0%);
-	--fg-on-badge: hsl(0, 0%, 0%);
+	// The badge sits on the INTEGRA red, which is too dark for black text.
+	--fg-on-badge: #ffffff;
 	--fg-accent: var(--accent);
 	--fg-failure: var(--accent-red);
 
@@ -278,13 +279,19 @@
 		var(--bg-gradient-image-from),
 		var(--bg-gradient-image-to) 100%
 	);
-	--bg-panel: #18181b; // zinc-900
-	--bg-panel-highlight: #3f3f46; // zinc-700
+	// INTEGRA surfaces: a near-black card on the zinc-950 page, hairline
+	// borders instead of shadows. Same values as the management panel and the
+	// access gate.
+	--bg-blur: rgb(9 9 11 / 0.85);
+	--bg-panel: #0c0c0e;
+	--bg-panel-highlight: #18181b;
 	--bg-separator: #27272a; // zinc-800
-	--bg-button: #27272a; // zinc-800
-	--bg-badge: var(--accent-pink);
+	--bg-border-strong: #3f3f46; // zinc-700
+	--bg-button: transparent;
+	--bg-hover: #18181b;
+	--bg-badge: var(--accent);
 
-	--shadow-panel: 0 4px 6px 0 hsla(0, 0%, 0%, 0.15);
+	--shadow-panel: none;
 
 	color-scheme: dark;
 }
@@ -299,7 +306,7 @@
 }
 
 body {
-	@apply text-foreground font-body font-semibold overflow-x-hidden;
+	@apply text-foreground font-body font-normal overflow-x-hidden;
 	width: 100vw;
 	background-color: var(--bg);
 	background-size: 100vw 100vh;
@@ -307,7 +314,7 @@ body {
 
 ::selection,
 ::-moz-selection {
-	@apply bg-accent-blue text-on-accent;
+	@apply bg-accent text-white;
 }
 
 .hoverable {
@@ -326,7 +333,7 @@ body {
 }
 
 .selected {
-	@apply bg-accent-purple !text-black;
+	@apply bg-panel-highlight !text-foreground;
 }
 
 @layer components {
@@ -334,19 +341,35 @@ body {
 		@apply appearance-none;
 	}
 
+	// INTEGRA buttons: a hairline outline on the page background, filled only
+	// when they are the primary action. No scaling, no pill radius.
 	.btn {
-		@apply bg-button flex items-center justify-center overflow-hidden relative cursor-pointer px-6 h-14 rounded-full font-medium focus:!outline-none hover:scale-105 duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none hoverable;
+		@apply flex items-center justify-center overflow-hidden relative cursor-pointer gap-2 px-4 h-10 rounded-md border border-strong bg-transparent text-sm font-medium focus:!outline-none disabled:opacity-50 disabled:pointer-events-none;
 		transition:
-			opacity 0.2s ease,
-			transform 0.2s ease,
-			background-color 0.2s ease;
+			opacity 0.15s ease,
+			border-color 0.15s ease,
+			color 0.15s ease,
+			background-color 0.15s ease;
+	}
+
+	.btn:hover:not(:disabled) {
+		@apply bg-hover;
+	}
+
+	.btn:focus-visible {
+		@apply outline outline-2 outline-accent;
+		outline-offset: 2px;
 	}
 
 	.btn.highlight {
 		// The INTEGRA red is dark enough that black on it fails AA, so the
-		// primary accent takes white text. --fg-on-accent stays black, since
-		// the pastel per-format accents need it.
-		@apply bg-accent text-white;
+		// primary accent takes white text.
+		@apply bg-accent border-accent text-white;
+	}
+
+	.btn.highlight:hover:not(:disabled) {
+		@apply bg-accent;
+		filter: brightness(1.15);
 	}
 
 	h1,
@@ -355,11 +378,33 @@ body {
 	h4,
 	h5,
 	h6 {
-		@apply font-display font-semibold;
+		@apply font-body font-bold tracking-tight;
+	}
+
+	// Mono, uppercase, muted: the label style the management panel and the
+	// access gate use above every heading and next to every value.
+	.eyebrow {
+		@apply font-display text-xs uppercase text-muted;
+		letter-spacing: 0.1em;
+	}
+
+	.meta {
+		@apply font-display text-xs text-muted;
+	}
+
+	.dot {
+		@apply inline-block bg-accent;
+		width: 0.625rem;
+		height: 0.625rem;
+	}
+
+	.dot-small {
+		width: 0.5rem;
+		height: 0.5rem;
 	}
 
 	code {
-		@apply font-mono bg-gray-200 rounded-md px-1 dynadark:bg-panel-alt dynadark:text-white;
+		@apply font-display text-xs bg-panel-highlight rounded px-1 text-foreground;
 	}
 
 	p a {
@@ -368,7 +413,12 @@ body {
 
 	input[type="text"],
 	select.dropdown {
-		@apply w-full p-3 rounded-lg bg-panel border-2 border-button pl-3 pr-[4rem];
+		@apply w-full p-2.5 rounded-md bg-transparent border border-strong pl-3 pr-[4rem];
+	}
+
+	input[type="text"]:hover,
+	select.dropdown:hover {
+		@apply border-muted;
 	}
 
 	input[type="number"]::-webkit-inner-spin-button,
@@ -391,15 +441,15 @@ body {
 	}
 
 	input[type="range"] {
-		@apply appearance-none bg-panel h-2 rounded-lg;
+		@apply appearance-none bg-panel-highlight h-2 rounded-md;
 	}
 
 	input[type="range"]::-webkit-slider-thumb {
-		@apply appearance-none w-4 h-4 bg-accent rounded-full cursor-pointer;
+		@apply appearance-none w-4 h-4 bg-accent rounded-sm cursor-pointer;
 	}
 
 	input[type="range"]::-moz-range-thumb {
-		@apply w-4 h-4 bg-accent rounded-full cursor-pointer;
+		@apply w-4 h-4 bg-accent rounded-sm cursor-pointer;
 	}
 
 	hr {

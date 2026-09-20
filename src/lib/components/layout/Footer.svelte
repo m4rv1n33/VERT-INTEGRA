@@ -1,62 +1,39 @@
 <script lang="ts">
-	import { GITHUB_URL_VERT, DISCORD_URL } from "$lib/util/consts";
+	import { GITHUB_URL_VERT } from "$lib/util/consts";
 	import { m } from "$lib/paraglide/messages";
 
 	const commitHash =
 		__COMMIT_HASH__ && __COMMIT_HASH__ !== "unknown"
 			? __COMMIT_HASH__
 			: null;
-
-	const year = new Date().getFullYear();
-
-	// we can't use svelte snippets or a derived object to render the footer as it causes a full-page reload
-	// ...for some reason. i have no idea, maybe it's to do with the {#key $locale} in +layout.svelte
 </script>
 
-<footer
-	class="hidden md:block w-full h-14 border-t border-separator fixed bottom-0 mt-12"
->
+<!-- Status bar, like the one the access gate and the management panel carry:
+     the system on the left, what this instance is on the right. -->
+<footer class="w-full border-t border-separator">
 	<div
-		class="w-full h-full flex items-center justify-center text-muted gap-3 relative"
+		class="w-full max-w-[100rem] mx-auto px-5 py-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 eyebrow"
 	>
-		<p>{m["footer.copyright"]({ year })}</p>
-		<p>•</p>
-		<a
-			class="hover:underline font-normal"
-			href={GITHUB_URL_VERT}
-			target="_blank"
-		>
-			{m["footer.source_code"]()}
-		</a>
-		<p>•</p>
-		<a
-			class="hover:underline font-normal"
-			href={DISCORD_URL}
-			target="_blank"
-		>
-			{m["footer.discord_server"]()}
-		</a>
-		<p>•</p>
-		<a
-			class="hover:underline font-normal"
-			href="/privacy/"
-		>
-			{m["footer.privacy_policy"]()}
-		</a>
-		{#if commitHash}
-			<p>•</p>
-			<a
-				class="hover:underline font-normal"
-				href="{GITHUB_URL_VERT}/commit/{commitHash}"
-				target="_blank"
+		<p class="flex items-center gap-2.5">
+			<span class="dot dot-small" aria-hidden="true"></span>
+			m4rv1n
+		</p>
+		<div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+			<a class="hover:text-accent" href={GITHUB_URL_VERT} target="_blank"
+				>{m["footer.source_code"]()}</a
 			>
-				{commitHash}
-			</a>
-		{/if}
+			<a class="hover:text-accent" href="/privacy/"
+				>{m["footer.privacy_policy"]()}</a
+			>
+			{#if commitHash}
+				<a
+					class="hover:text-accent normal-case"
+					style="letter-spacing: 0;"
+					href="{GITHUB_URL_VERT}/commit/{commitHash}"
+					target="_blank">{commitHash}</a
+				>
+			{/if}
+			<p>INTEGRA file converter</p>
+		</div>
 	</div>
-
-	<div
-		class="absolute bottom-0 left-0 w-full h-24 -z-10 pointer-events-none"
-		style="background: linear-gradient(to bottom, transparent, var(--bg) 100%)"
-	></div>
 </footer>

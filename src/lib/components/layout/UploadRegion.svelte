@@ -1,46 +1,17 @@
 <script lang="ts">
 	import { duration, fade } from "$lib/util/animation";
-	import { dropping, effects } from "$lib/store/index.svelte";
+	import { dropping } from "$lib/store/index.svelte";
 	import { quintOut } from "svelte/easing";
 </script>
 
 {#if $dropping}
+	<!-- One accent outline over the page while a file is held over it. -->
 	<div
-		class="fixed w-screen h-screen opacity-40 dynadark:opacity-20 z-[100] pointer-events-none blur-2xl {$effects
-			? 'dragoverlay'
-			: 'bg-accent-blue'}"
-		class:_dragover={dropping && $effects}
+		class="fixed inset-0 z-[100] pointer-events-none"
+		style="border: 2px solid var(--accent); background: rgb(235 0 0 / 0.06);"
 		transition:fade={{
 			duration,
 			easing: quintOut,
 		}}
 	></div>
 {/if}
-
-<style lang="postcss">
-	.dragoverlay {
-		animation: dragoverlay-animation 3s infinite linear;
-	}
-
-	@keyframes dragoverlay-animation {
-		0% {
-			@apply bg-accent-pink;
-		}
-
-		25% {
-			@apply bg-accent-blue;
-		}
-
-		50% {
-			@apply bg-accent-purple;
-		}
-
-		75% {
-			@apply bg-accent-red;
-		}
-
-		100% {
-			@apply bg-accent-pink;
-		}
-	}
-</style>

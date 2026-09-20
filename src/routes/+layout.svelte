@@ -5,8 +5,6 @@
 	import { PUB_PLAUSIBLE_URL, PUB_HOSTNAME } from "$env/static/public";
 	import { DISABLE_ALL_EXTERNAL_REQUESTS, VERT_NAME } from "$lib/util/consts.js";
 	import * as Layout from "$lib/components/layout";
-	import * as Navbar from "$lib/components/layout/Navbar";
-	import featuredImage from "$lib/assets/VERT_Feature.webp";
 	import { Settings } from "$lib/sections/settings/index.svelte";
 	import {
 		files,
@@ -28,7 +26,6 @@
 
 	let { children } = $props();
 	let enablePlausible = $state(false);
-	let isAprilFools = $state(false);
 
 	let scrollPositions = new Map<string, number>();
 
@@ -50,7 +47,7 @@
 		dropping.set(false);
 		const oldLength = files.files.length;
 		files.add(e.dataTransfer?.files);
-		if (oldLength !== files.files.length) goto("/convert");
+		if (oldLength !== files.files.length) goto("/");
 	};
 
 	const handleDrag = (e: DragEvent, drag: boolean) => {
@@ -64,13 +61,10 @@
 		e.preventDefault();
 		const oldLength = files.files.length;
 		files.add(clipboardData.files);
-		if (oldLength !== files.files.length) goto("/convert");
+		if (oldLength !== files.files.length) goto("/");
 	};
 
 	onMount(() => {
-		const now = new Date();
-		isAprilFools = now.getDate() === 1 && now.getMonth() === 3;
-
 		initAnimStores();
 
 		const handleResize = () => {
@@ -129,57 +123,23 @@
 
 <svelte:head>
 	<title>{VERT_NAME}</title>
-	<meta name="theme-color" content="#F2ABEE" />
-	<meta
-		name="title"
-		content="{VERT_NAME} — Free, fast, and awesome file converter"
-	/>
+	<meta name="theme-color" content="#09090b" />
+	<meta name="robots" content="noindex, nofollow" />
+	<meta name="title" content="{VERT_NAME} — file converter" />
 	<meta
 		name="description"
-		content="With VERT, you can quickly convert any image, video, audio, and document file. No ads, no tracking, open source, and all processing (other than video) is done on your device."
+		content="Image, audio and document files are converted in the browser, on this device. Video conversion runs on the INTEGRA host."
 	/>
-	<meta property="og:url" content="https://vert.sh" />
-	<meta property="og:type" content="website" />
-	<meta
-		property="og:title"
-		content="{VERT_NAME} — Free, fast, and awesome file converter"
-	/>
-	<meta
-		property="og:description"
-		content="With VERT, you can quickly convert any image, video, audio, and document file. No ads, no tracking, open source, and all processing (other than video) is done on your device."
-	/>
-	<meta property="og:image" content={featuredImage} />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta property="twitter:domain" content="vert.sh" />
-	<meta property="twitter:url" content="https://vert.sh" />
-	<meta
-		property="twitter:title"
-		content="{VERT_NAME} — Free, fast, and awesome file converter"
-	/>
-	<meta
-		property="twitter:description"
-		content="With VERT, you can quickly convert any image, video, audio, and document file. No ads, no tracking, open source, and all processing (other than video) is done on your device."
-	/>
-	<meta property="twitter:image" content={featuredImage} />
 	<link rel="manifest" href="/manifest.json" />
-	<link rel="canonical" href="https://vert.sh/" />
 	{#if enablePlausible}
 		<script
 			defer
-			data-domain={PUB_HOSTNAME || "vert.sh"}
+			data-domain={PUB_HOSTNAME || "convert.m4rv1n.dev"}
 			src="{PUB_PLAUSIBLE_URL}/js/script.js"
 		></script>
 	{/if}
-	{#if isAprilFools}
-		<style>
-			* {
-				font-family: "Comic Sans MS", "Comic Sans", cursive !important;
-			}
-		</style>
-	{/if}
 </svelte:head>
 
-<!-- FIXME: if user resizes between desktop/mobile, highlight of page disappears (only shows on original size) -->
 {#key $locale}
 	<div
 		class="flex flex-col min-h-screen h-full w-full overflow-x-hidden"
@@ -191,10 +151,7 @@
 	>
 		<Layout.UploadRegion />
 
-		<div>
-			<Layout.MobileLogo />
-			<Navbar.Desktop />
-		</div>
+		<Layout.Topbar />
 
 		<!-- 
 		SvelteKit throws the following warning when developing - safe to ignore as we render the children in this component:
@@ -205,12 +162,6 @@
 		<Layout.Toasts />
 		<Layout.Dialogs />
 
-		<div>
-			<Layout.Footer />
-			<Navbar.Mobile />
-		</div>
+		<Layout.Footer />
 	</div>
 {/key}
-
-<!-- Gradients placed here to prevent it overlapping in transitions -->
-<Layout.Gradients />
