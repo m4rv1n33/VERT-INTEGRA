@@ -1,20 +1,12 @@
 <script lang="ts">
 	import Panel from "$lib/components/visual/Panel.svelte";
 	import {
-		theme,
 		effects,
 		setEffects,
-		setTheme,
 		updateLocale,
 		availableLocales,
 	} from "$lib/store/index.svelte";
-	import {
-		MoonIcon,
-		PaletteIcon,
-		PauseIcon,
-		PlayIcon,
-		SunIcon,
-	} from "lucide-svelte";
+	import { PaletteIcon, PauseIcon, PlayIcon } from "lucide-svelte";
 	import { onMount, onDestroy } from "svelte";
 	import { m } from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
@@ -34,13 +26,10 @@
 		getLanguageDisplayName(locale),
 	);
 
-	let lightElement: HTMLButtonElement;
-	let darkElement: HTMLButtonElement;
 	let enableEffectsElement: HTMLButtonElement;
 	let disableEffectsElement: HTMLButtonElement;
 
 	let effectsUnsubscribe: () => void;
-	let themeUnsubscribe: () => void;
 
 	const updateEffectsClasses = (value: boolean) => {
 		if (value) {
@@ -52,34 +41,18 @@
 		}
 	};
 
-	const updateThemeClasses = (value: string) => {
-		document.documentElement.classList.remove("light", "dark");
-		document.documentElement.classList.add(value);
-
-		if (value === "dark") {
-			darkElement.classList.add("selected");
-			lightElement.classList.remove("selected");
-		} else {
-			lightElement.classList.add("selected");
-			darkElement.classList.remove("selected");
-		}
-	};
-
 	onMount(() => {
 		effectsUnsubscribe = effects.subscribe(updateEffectsClasses);
-		themeUnsubscribe = theme.subscribe(updateThemeClasses);
 
 		currentLocale = localStorage.getItem("locale") || getLocale();
 	});
 
 	onDestroy(() => {
 		if (effectsUnsubscribe) effectsUnsubscribe();
-		if (themeUnsubscribe) themeUnsubscribe();
 	});
 
 	$effect(() => {
 		updateEffectsClasses($effects);
-		updateThemeClasses($theme);
 	});
 
 	function handleLanguageChange(selectedLanguage: string) {
@@ -105,37 +78,6 @@
 			{m["settings.appearance.title"]()}
 		</h2>
 		<div class="flex flex-col gap-8">
-			<div class="flex flex-col gap-4">
-				<div class="flex flex-col gap-2">
-					<p class="text-base font-bold">
-						{m["settings.appearance.brightness_theme"]()}
-					</p>
-					<p class="text-sm text-muted font-normal italic">
-						{m["settings.appearance.brightness_description"]()}
-					</p>
-				</div>
-				<div class="flex flex-col gap-3 w-full">
-					<div class="flex gap-3 w-full">
-						<button
-							bind:this={lightElement}
-							onclick={() => setTheme("light")}
-							class="btn flex-1 p-4 flex items-center justify-center"
-						>
-							<SunIcon size="24" class="inline-block mr-2" />
-							{m["settings.appearance.light"]()}
-						</button>
-
-						<button
-							bind:this={darkElement}
-							onclick={() => setTheme("dark")}
-							class="btn flex-1 p-4 flex items-center justify-center"
-						>
-							<MoonIcon size="24" class="inline-block mr-2" />
-							{m["settings.appearance.dark"]()}
-						</button>
-					</div>
-				</div>
-			</div>
 			<div class="flex flex-col gap-4">
 				<div class="flex flex-col gap-2">
 					<p class="text-base font-bold">

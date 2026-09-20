@@ -76,9 +76,7 @@
 		window.addEventListener("paste", handlePaste);
 
 		effects.set(localStorage.getItem("effects") !== "false"); // defaults to true if not set
-		theme.set(
-			(localStorage.getItem("theme") as "light" | "dark") || "light",
-		);
+		theme.set("dark");
 		const storedLocale = localStorage.getItem("locale");
 		if (storedLocale) updateLocale(storedLocale);
 

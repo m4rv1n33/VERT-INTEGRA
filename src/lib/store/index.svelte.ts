@@ -436,7 +436,7 @@ export const dropdownStates = writable<Record<string, string>>({});
 
 export const isMobile = writable(false);
 export const effects = writable(true);
-export const theme = writable<"light" | "dark">("light");
+export const theme = writable<"light" | "dark">("dark");
 export const locale = writable(getLocale());
 export const availableLocales = {
 	en: "English",
