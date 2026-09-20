@@ -343,7 +343,10 @@ body {
 	}
 
 	.btn.highlight {
-		@apply bg-accent text-on-accent;
+		// The INTEGRA red is dark enough that black on it fails AA, so the
+		// primary accent takes white text. --fg-on-accent stays black, since
+		// the pastel per-format accents need it.
+		@apply bg-accent text-white;
 	}
 
 	h1,
