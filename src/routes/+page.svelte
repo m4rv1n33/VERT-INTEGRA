@@ -378,14 +378,7 @@
 {/snippet}
 
 <div class="flex flex-col gap-8">
-	<div class="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-		<h1 class="text-3xl md:text-4xl">{m["convert.page.title"]()}</h1>
-		<p class="eyebrow">
-			<span class="text-accent">INTEGRA</span> · {m[
-				"convert.page.eyebrow"
-			]()}
-		</p>
-	</div>
+	<h1 class="text-3xl md:text-4xl">{m["convert.page.title"]()}</h1>
 
 	<section class="flex flex-col gap-3">
 		<div class="flex flex-wrap items-baseline justify-between gap-x-4">

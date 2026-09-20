@@ -142,10 +142,7 @@
 </script>
 
 <div class="flex flex-col gap-8">
-	<div class="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-		<h1 class="text-3xl md:text-4xl">{m["about.title"]()}</h1>
-		<p class="eyebrow"><span class="text-accent">INTEGRA</span> · convert</p>
-	</div>
+	<h1 class="text-3xl md:text-4xl">{m["about.title"]()}</h1>
 
 	<div class="w-full flex flex-col md:flex-row gap-4">
 		<!-- Why VERT? & Credits -->
