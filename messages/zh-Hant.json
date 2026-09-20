@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "上傳",
 		"convert": "轉換",
 		"settings": "設定",
-		"about": "關於",
-		"toggle_theme": "切換主題"
+		"about": "關於"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -14,36 +12,9 @@
 		"privacy_policy": "隱私權政策"
 	},
 	"upload": {
-		"title": "你一定會喜歡的檔案轉換工具。",
-		"subtitle": "所有圖片、音訊和文件處理都在你的裝置上進行。影片透過超快速伺服器轉換。無檔案大小限制，無廣告，完全開源。",
 		"uploader": {
 			"text": "拖放或點擊以{action}",
 			"convert": "轉換"
-		},
-		"cards": {
-			"title": "VERT 支援...",
-			"images": "圖片",
-			"audio": "音訊",
-			"documents": "文件",
-			"video": "影片",
-			"video_server_processing": "伺服器支援",
-			"local_supported": "本機支援",
-			"status": {
-				"text": "<b>狀態：</b>{status}",
-				"ready": "就緒",
-				"not_ready": "未就緒",
-				"not_initialized": "未初始化",
-				"downloading": "下載中...",
-				"initializing": "初始化中...",
-				"unknown": "未知狀態"
-			},
-			"supported_formats": "支援的格式："
-		},
-		"tooltip": {
-			"partial_support": "此格式僅可作為{direction}進行轉換。",
-			"direction_input": "輸入（來源）",
-			"direction_output": "輸出（目標）",
-			"video_server_processing": "影片預設上傳到伺服器進行處理，點擊這裡了解如何在本機設定。"
 		}
 	},
 	"convert": {

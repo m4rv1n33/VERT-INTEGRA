@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "업로드",
 		"convert": "변환",
 		"settings": "설정",
-		"about": "정보",
-		"toggle_theme": "테마 전환"
+		"about": "정보"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -14,36 +12,9 @@
 		"privacy_policy": "개인정보 처리방침"
 	},
 	"upload": {
-		"title": "이 파일 변환기,\n 마음에 드실 거예요.",
-		"subtitle": "모든 이미지, 오디오, 문서 처리는 사용자의 기기에서 이루어집니다. 동영상은 매우 빠른 VERT 전용 서버에서 변환됩니다. 광고나 파일 크기 제한이 전혀 없는 완전한 오픈 소스입니다.",
 		"uploader": {
 			"text": "드래그하거나 클릭해서 {action}",
 			"convert": "변환하기"
-		},
-		"cards": {
-			"title": "VERT가 지원하는 포맷들",
-			"images": "이미지",
-			"audio": "오디오",
-			"documents": "문서",
-			"video": "동영상",
-			"video_server_processing": "서버 지원",
-			"local_supported": "로컬 지원",
-			"status": {
-				"text": "<b>상태:</b> {status}",
-				"ready": "준비됨",
-				"not_ready": "준비되지 않음",
-				"not_initialized": "준비 안됨",
-				"downloading": "다운로드중...",
-				"initializing": "준비중...",
-				"unknown": "알 수 없음"
-			},
-			"supported_formats": "지원 포맷:"
-		},
-		"tooltip": {
-			"partial_support": "이 형식은 {direction}으로만 변환할 수 있습니다.",
-			"direction_input": "입력 (from)",
-			"direction_output": "출력 (to)",
-			"video_server_processing": "동영상은 기본적으로 처리를 위해 서버로 업로드됩니다. 로컬로 처리하도록 설정하는 방법은 여기에서 확인하세요."
 		}
 	},
 	"convert": {

@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "上传",
 		"convert": "转换",
 		"settings": "设置",
-		"about": "关于",
-		"toggle_theme": "切换主题"
+		"about": "关于"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -14,36 +12,9 @@
 		"privacy_policy": "隐私政策"
 	},
 	"upload": {
-		"title": "你一定会喜欢的文件转换工具。",
-		"subtitle": "所有图片、音频和文档处理都在你的设备上进行。视频通过超快速服务器转换。无文件大小限制，无广告，完全开源。",
 		"uploader": {
 			"text": "拖放或点击以{action}",
 			"convert": "转换"
-		},
-		"cards": {
-			"title": "VERT 支持...",
-			"images": "图片",
-			"audio": "音频",
-			"documents": "文档",
-			"video": "视频",
-			"video_server_processing": "服务器支持",
-			"local_supported": "本地支持",
-			"status": {
-				"text": "<b>状态：</b>{status}",
-				"ready": "就绪",
-				"not_ready": "未就绪",
-				"not_initialized": "未初始化",
-				"downloading": "下载中...",
-				"initializing": "初始化中...",
-				"unknown": "未知状态"
-			},
-			"supported_formats": "支持的格式："
-		},
-		"tooltip": {
-			"partial_support": "此格式仅可作为{direction}进行转换。",
-			"direction_input": "输入（来源）",
-			"direction_output": "输出（目标）",
-			"video_server_processing": "视频默认上传到服务器进行处理，点击这里了解如何在本地设置。"
 		}
 	},
 	"convert": {

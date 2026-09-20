@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "Hochladen",
 		"convert": "Konvertieren",
 		"settings": "Optionen",
-		"about": "Über",
-		"toggle_theme": "Design wechseln"
+		"about": "Über"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -14,36 +12,9 @@
 		"privacy_policy": "Datenschutzerklärung"
 	},
 	"upload": {
-		"title": "Der Dateikonverter, den du lieben wirst.",
-		"subtitle": "Die Verarbeitung aller Bild-, Audio- und Dokumentdateien findet direkt auf deinem Gerät statt. Videos werden auf unseren blitzschnellen Servern konvertiert. Kein Dateigrößenlimit, keine Werbung und vollständig Open Source.",
 		"uploader": {
 			"text": "Dateien hier ablegen oder klicken zum {action}",
 			"convert": "Konvertieren"
-		},
-		"cards": {
-			"title": "VERT unterstützt...",
-			"images": "Bilder",
-			"audio": "Audio",
-			"documents": "Dokumente",
-			"video": "Video",
-			"video_server_processing": "Server-gestützt",
-			"local_supported": "Lokal unterstützt",
-			"status": {
-				"text": "<b>Status:</b> {status}",
-				"ready": "Bereit",
-				"not_ready": "Nicht bereit",
-				"not_initialized": "Nicht initialisiert",
-				"downloading": "Herunterladen...",
-				"initializing": "Initialisieren...",
-				"unknown": "Unbekannter Status"
-			},
-			"supported_formats": "Unterstützte Formate:"
-		},
-		"tooltip": {
-			"partial_support": "Dieses Format kann nur als {direction} konvertiert werden.",
-			"direction_input": "Eingabe (von)",
-			"direction_output": "Ausgabe (nach)",
-			"video_server_processing": "Videos werden standardmäßig zur Verarbeitung auf einen Server hochgeladen. Erfahre hier, wie du die Verarbeitung lokal einrichten kannst."
 		}
 	},
 	"convert": {

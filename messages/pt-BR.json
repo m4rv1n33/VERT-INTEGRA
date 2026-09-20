@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "Upload",
 		"convert": "Converter",
 		"settings": "Ajustes",
-		"about": "Sobre",
-		"toggle_theme": "Alternar tema"
+		"about": "Sobre"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -14,36 +12,9 @@
 		"privacy_policy": "Política de privacidade"
 	},
 	"upload": {
-		"title": "O conversor de arquivos que você vai adorar.",
-		"subtitle": "Todo processamento de imagens, audio e documentos é feito no seu dispositivo. Vídeos são convertidos em nossos servidores ultrarrápidos. Sem limite de tamanho de arquivo, sem anúncios e totalmente de código aberto.",
 		"uploader": {
 			"text": "Arraste ou clique para {action}",
 			"convert": "converter"
-		},
-		"cards": {
-			"title": "VERT suporta...",
-			"images": "Imagens",
-			"audio": "Áudio",
-			"documents": "Documentos",
-			"video": "Vídeo",
-			"video_server_processing": "Suportado pelo servidor",
-			"local_supported": "Suportado localmente",
-			"status": {
-				"text": "<b>Status:</b> {status}",
-				"ready": "pronto",
-				"not_ready": "não pronto",
-				"not_initialized": "não inicializado",
-				"downloading": "baixando...",
-				"initializing": "inicializando...",
-				"unknown": "status desconhecido"
-			},
-			"supported_formats": "Formatos suportados:"
-		},
-		"tooltip": {
-			"partial_support": "Este formato só pode ser convertido como {direction}.",
-			"direction_input": "entrada (de)",
-			"direction_output": "saída (para)",
-			"video_server_processing": "Uploads de vídeo para um servidor para processamento por padrão, saiba como configurá-lo localmente aqui."
 		}
 	},
 	"convert": {

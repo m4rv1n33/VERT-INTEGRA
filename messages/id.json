@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "Unggah",
 		"convert": "Konversi",
 		"settings": "Pengaturan",
-		"about": "Tentang",
-		"toggle_theme": "Ganti Tema"
+		"about": "Tentang"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -13,37 +11,10 @@
 		"discord_server": "Peladen Discord"
 	},
 	"upload": {
-		"title": "Konverter berkas andalanmu.",
-		"subtitle": "Semua gambar, audio, dan pemrosesan dokumen dilakukan pada perangkatmu. Video dikonversi pada peladen kilat kami. Tidak ada batas ukuran berkas, tidak ada iklan, dan benar-benar sumber terbuka.",
 		"uploader": {
 			"text": "Jatuhkan dan klik untuk {action}",
 			"convert": "Konversi",
 			"jpegify": "jpegify"
-		},
-		"cards": {
-			"title": "Dapat Ditangani VERT ...",
-			"images": "Gambar",
-			"audio": "Audio",
-			"documents": "Dokumen",
-			"video": "Video",
-			"video_server_processing": "Proses di Server",
-			"local_supported": "Proses di Lokal",
-			"status": {
-				"text": "<b>Status:</b> {status}",
-				"ready": "siap",
-				"not_ready": "belum siap",
-				"not_initialized": "tidak terinisialisasi",
-				"downloading": "mengunduh...",
-				"initializing": "menginisialisasi...",
-				"unknown": "status tidak diketahui"
-			},
-			"supported_formats": "Format yang didukung:"
-		},
-		"tooltip": {
-			"partial_support": "Format ini hanya dapat dikonversi ke {direction}.",
-			"direction_input": "sumber asal (dari)",
-			"direction_output": "target (ke)",
-			"video_server_processing": "Video upload ke server untuk diproses secara baku, belajar bagaimana mengaturnya di sini."
 		}
 	},
 	"convert": {

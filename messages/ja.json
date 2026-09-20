@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "アップロード",
 		"convert": "変換",
 		"settings": "設定",
-		"about": "について",
-		"toggle_theme": "テーマを切り替える"
+		"about": "について"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -13,36 +11,9 @@
 		"discord_server": "Discordサーバー"
 	},
 	"upload": {
-		"title": "きっと気に入るファイル変換ツール。",
-		"subtitle": "すべての画像・音声・ドキュメント処理はデバイス上で行われます。動画は超高速サーバーで変換されます。ファイルサイズ制限なし、広告なし、完全オープンソース。",
 		"uploader": {
 			"text": "ドロップまたはクリックして{action}",
 			"convert": "変換"
-		},
-		"cards": {
-			"title": "VERTがサポートしている形式",
-			"images": "画像",
-			"audio": "音声",
-			"documents": "ドキュメント",
-			"video": "動画",
-			"video_server_processing": "サーバー対応",
-			"local_supported": "ローカル対応",
-			"status": {
-				"text": "<b>ステータス:</b> {status}",
-				"ready": "準備完了",
-				"not_ready": "未準備",
-				"not_initialized": "未初期化",
-				"downloading": "ダウンロード中...",
-				"initializing": "初期化中...",
-				"unknown": "不明なステータス"
-			},
-			"supported_formats": "対応フォーマット:"
-		},
-		"tooltip": {
-			"partial_support": "このフォーマットは{direction}としてのみ変換可能です。",
-			"direction_input": "入力（変換元）",
-			"direction_output": "出力（変換先）",
-			"video_server_processing": "動画はデフォルトでサーバーにアップロードされて処理されます。ローカルで設定する方法はこちら。"
 		}
 	},
 	"convert": {

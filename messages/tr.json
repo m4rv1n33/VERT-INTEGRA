@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "Yükle",
 		"convert": "Dönüştür",
 		"settings": "Ayarlar",
-		"about": "Hakkımızda",
-		"toggle_theme": "Temayı değiştir"
+		"about": "Hakkımızda"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -13,36 +11,9 @@
 		"discord_server": "Discord sunucusu"
 	},
 	"upload": {
-		"title": "Sevdiğiniz dosya dönüştürücü.",
-		"subtitle": "Tüm görüntü, ses ve belge işlemleri cihazınızda gerçekleştirilir. Videolar, ışık hızındaki sunucularımızda dönüştürülür. Dosya boyutu sınırı ve reklam yoktur. Tamamen açık kaynaklıdır.",
 		"uploader": {
 			"text": "{action} için sürükleyip bırakın veya dosya seçin",
 			"convert": "dönüştürmek"
-		},
-		"cards": {
-			"title": "VERT'in desteklediği formatlar...",
-			"images": "Görsel",
-			"audio": "Ses",
-			"documents": "Belge",
-			"video": "Video",
-			"video_server_processing": "Sunucuda gerçekleşir",
-			"local_supported": "Cihazınızda gerçekleşir",
-			"status": {
-				"text": "<b>Durum:</b> {status}",
-				"ready": "hazır",
-				"not_ready": "hazır değil",
-				"not_initialized": "başlatılmamış",
-				"downloading": "indiriliyor...",
-				"initializing": "başlatılıyor...",
-				"unknown": "bilinmeyen durum"
-			},
-			"supported_formats": "Desteklenen formatlar:"
-		},
-		"tooltip": {
-			"partial_support": "Bu format yalnızca şu şekilde dönüştürülebilir: {direction}.",
-			"direction_input": "kaynak",
-			"direction_output": "çıktı",
-			"video_server_processing": "Videolar varsayılan olarak işlenmek üzere sunucuya yüklenir. Yerel olarak nasıl ayarlayacağınızı buradan öğrenebilirsiniz."
 		}
 	},
 	"convert": {

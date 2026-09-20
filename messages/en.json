@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "Upload",
 		"convert": "Convert",
 		"settings": "Settings",
-		"about": "About",
-		"toggle_theme": "Toggle theme"
+		"about": "About"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -14,36 +12,9 @@
 		"privacy_policy": "Privacy policy"
 	},
 	"upload": {
-		"title": "The file converter you'll love.",
-		"subtitle": "All image, audio, and document processing is done on your device. Videos are converted on our lightning-fast servers. No file size limit, no ads, and completely open source.",
 		"uploader": {
 			"text": "Drop or click to {action}",
 			"convert": "convert"
-		},
-		"cards": {
-			"title": "VERT supports...",
-			"images": "Images",
-			"audio": "Audio",
-			"documents": "Documents",
-			"video": "Video",
-			"video_server_processing": "Server supported",
-			"local_supported": "Local supported",
-			"status": {
-				"text": "<b>Status:</b> {status}",
-				"ready": "ready",
-				"not_ready": "not ready",
-				"not_initialized": "not initialized",
-				"downloading": "downloading...",
-				"initializing": "initializing...",
-				"unknown": "unknown status"
-			},
-			"supported_formats": "Supported formats:"
-		},
-		"tooltip": {
-			"partial_support": "This format can only be converted as {direction}.",
-			"direction_input": "input (from)",
-			"direction_output": "output (to)",
-			"video_server_processing": "Video uploads to a server for processing by default, learn how to set it up locally here."
 		}
 	},
 	"convert": {
@@ -117,6 +88,13 @@
 			"audio": "audio",
 			"doc": "document",
 			"image": "image"
+		},
+		"page": {
+			"title": "Convert",
+			"eyebrow": "Files stay on this device",
+			"batch": "Batch",
+			"files": "Files",
+			"queued": "{count} queued"
 		}
 	},
 	"settings": {

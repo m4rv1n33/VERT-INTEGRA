@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "Transférer",
 		"convert": "Convertir",
 		"settings": "Paramètres",
-		"about": "A propos",
-		"toggle_theme": "Changer de thème"
+		"about": "A propos"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -13,36 +11,9 @@
 		"discord_server": "Serveur Discord"
 	},
 	"upload": {
-		"title": "Le convertisseur de fichiers que vous allez adorer.",
-		"subtitle": "Tout le traitement des images, des fichiers audio et des documents s'effectue sur votre appareil. Les vidéos sont converties sur nos serveurs ultra-rapides. Aucune limite de taille de fichier, aucune publicité et entièrement open source.",
 		"uploader": {
 			"text": "Déposer ou cliquer pour {action}",
 			"convert": "convertir"
-		},
-		"cards": {
-			"title": "VERT supports...",
-			"images": "Images",
-			"audio": "Audio",
-			"documents": "Documents",
-			"video": "Video",
-			"video_server_processing": "Serveur pris en charge",
-			"local_supported": "Prise en charge locale",
-			"status": {
-				"text": "<b>Status:</b> {status}",
-				"ready": "Prêt",
-				"not_ready": "Pas encore prêt",
-				"not_initialized": "non initialisé",
-				"downloading": "en cours de téléchargement...",
-				"initializing": "initialisation...",
-				"unknown": "status inconnu"
-			},
-			"supported_formats": "Formats supportés:"
-		},
-		"tooltip": {
-			"partial_support": "Ce format ne peut être converti qu'en {direction}.",
-			"direction_input": "Entrée (de)",
-			"direction_output": "Sortie (vers)",
-			"video_server_processing": "Les vidéos sont téléchargées sur un serveur pour un traitement par défaut, découvrez comment les configurer localement ici."
 		}
 	},
 	"convert": {

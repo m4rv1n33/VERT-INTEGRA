@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "Μεταφόρτωση",
 		"convert": "Μετατροπή",
 		"settings": "Ρυθμίσεις",
-		"about": "Σχετικά",
-		"toggle_theme": "Εναλλαγή θέματος"
+		"about": "Σχετικά"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -13,36 +11,9 @@
 		"discord_server": "Discord"
 	},
 	"upload": {
-		"title": "Ο μετατροπέας αρχείων που θα λατρέψετε.",
-		"subtitle": "Όλη η επεξεργασία εικόνων, ήχου και εγγράφων γίνεται στη συσκευή σας. Τα βίντεο μετατρέπονται στους κεραυνοβόλα γρήγορους διακομιστές μας. Χωρίς όριο μεγέθους αρχείου, χωρίς διαφημίσεις και εντελώς ανοιχτού κώδικα.",
 		"uploader": {
 			"text": "Σύρετε ή κάντε κλικ για {action}",
 			"convert": "μετατροπή"
-		},
-		"cards": {
-			"title": "Το VERT υποστηρίζει...",
-			"images": "Εικόνες",
-			"audio": "Ήχο",
-			"documents": "Έγγραφα",
-			"video": "Βίντεο",
-			"video_server_processing": "Υποστηρίζεται από σέρβερ",
-			"local_supported": "Τοπική υποστήριξη",
-			"status": {
-				"text": "<b>Κατάσταση:</b> {status}",
-				"ready": "έτοιμο",
-				"not_ready": "μη έτοιμο",
-				"not_initialized": "μη αρχικοποιημένο",
-				"downloading": "λήψη...",
-				"initializing": "αρχικοποίηση...",
-				"unknown": "άγνωστη κατάσταση"
-			},
-			"supported_formats": "Υποστηριζόμενες μορφές:"
-		},
-		"tooltip": {
-			"partial_support": "Αυτή η μορφή μπορεί να μετατραπεί μόνο ως {direction}.",
-			"direction_input": "είσοδος (από)",
-			"direction_output": "έξοδος (προς)",
-			"video_server_processing": "Τα βίντεο μεταφορτώνονται σε σέρβερ για επεξεργασία από προεπιλογή, μάθετε πώς να το ρυθμίσετε τοπικά εδώ."
 		}
 	},
 	"convert": {

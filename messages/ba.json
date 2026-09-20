@@ -1,11 +1,9 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "navbar": {
-    "upload": "Učitaj",
     "convert": "Konvertuj",
     "settings": "Postavke",
-    "about": "O nama",
-    "toggle_theme": "Promijeni temu"
+    "about": "O nama"
   },
   "footer": {
     "copyright": "© {year} VERT.",
@@ -14,36 +12,9 @@
     "privacy_policy": "Politika privatnosti"
   },
   "upload": {
-    "title": "Konverter datoteka koji ćete voljeti.",
-    "subtitle": "Sva obrada slika, zvuka i dokumenata obavlja se na vašem uređaju. Video zapisi se konvertuju na našim izuzetno brzim serverima. Bez ograničenja veličine, bez reklama i potpuno otvorenog koda.",
     "uploader": {
       "text": "Prevucite ili kliknite da {action}",
       "convert": "konvertujete"
-    },
-    "cards": {
-      "title": "VERT podržava...",
-      "images": "Slike",
-      "audio": "Audio",
-      "documents": "Dokumente",
-      "video": "Video",
-      "video_server_processing": "Server podržava",
-      "local_supported": "Lokalno podržano",
-      "status": {
-        "text": "<b>Status:</b> {status}",
-        "ready": "spreman",
-        "not_ready": "nije spreman",
-        "not_initialized": "nije inicijaliziran",
-        "downloading": "preuzimam...",
-        "initializing": "inicijaliziram...",
-        "unknown": "nepoznat status"
-      },
-      "supported_formats": "Podržani formati:"
-    },
-    "tooltip": {
-      "partial_support": "Ovaj format može biti konvertovan samo kao {direction}.",
-      "direction_input": "ulazni (iz)",
-      "direction_output": "izlazni (u)",
-      "video_server_processing": "Video se podrazumijevano otprema na server radi obrade, ovdje možete naučiti kako to postaviti lokalno."
     }
   },
   "convert": {

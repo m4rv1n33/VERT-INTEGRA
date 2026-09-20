@@ -1,316 +1,417 @@
 <script lang="ts">
+	import ConversionPanel from "$lib/components/functional/ConversionPanel.svelte";
+	import FormatDropdown from "$lib/components/functional/FormatDropdown.svelte";
 	import Uploader from "$lib/components/functional/Uploader.svelte";
+	import Panel from "$lib/components/visual/Panel.svelte";
+	import ProgressBar from "$lib/components/visual/ProgressBar.svelte";
 	import Tooltip from "$lib/components/visual/Tooltip.svelte";
-	import { converters } from "$lib/converters";
-	import { vertdLoaded } from "$lib/store/index.svelte";
-	import clsx from "clsx";
-	import { AudioLines, BookText, Check, Film, Image } from "lucide-svelte";
+	import { categories, converters } from "$lib/converters";
+	import {
+		files,
+		vertdLoaded,
+		dropdownStates,
+	} from "$lib/store/index.svelte";
+	import { VertFile } from "$lib/types";
+	import {
+		AudioLines,
+		BookText,
+		DownloadIcon,
+		FileMusicIcon,
+		FileQuestionIcon,
+		FileVideo2,
+		FilmIcon,
+		ImageIcon,
+		ImageOffIcon,
+		RotateCwIcon,
+		XIcon,
+	} from "lucide-svelte";
 	import { m } from "$lib/paraglide/messages";
-	import { OverlayScrollbarsComponent } from "overlayscrollbars-svelte";
-	import { browser } from "$app/environment";
-	import "overlayscrollbars/overlayscrollbars.css";
-	import { onMount } from "svelte";
-	import type { WorkerStatus } from "$lib/converters/converter.svelte";
-	import { sanitize } from "$lib/store/index.svelte";
-	import { DISABLE_ALL_EXTERNAL_REQUESTS } from "$lib/util/consts";
+	import { Settings } from "$lib/sections/settings/index.svelte";
+	import { MAX_ARRAY_BUFFER_SIZE } from "$lib/store/index.svelte";
+	import { GB } from "$lib/util/consts";
+	import { log } from "$lib/util/logger";
 
-	const getSupportedFormats = (name: string) =>
-		converters
-			.find((c) => c.name === name)
-			?.supportedFormats.map(
-				(f) =>
-					`${f.name}${f.fromSupported && f.toSupported ? "" : "*"}`,
-			)
-			.join(", ") || "none";
+	let processedFileIds = $state(new Set<string>());
 
-	const worker: {
-		[key: string]: {
-			formats: string;
-			icon: typeof Image;
-			title: string;
-			status: WorkerStatus;
-		};
-	} = $derived.by(() => {
-		const output: {
-			[key: string]: {
-				formats: string;
-				icon: typeof Image;
-				title: string;
-				status: WorkerStatus;
-			};
-		} = {
-			Images: {
-				formats: getSupportedFormats("imagemagick"),
-				icon: Image,
-				title: m["upload.cards.images"](),
-				status:
-					converters.find((c) => c.name === "imagemagick")?.status ||
-					"not-ready",
-			},
-			Audio: {
-				formats: getSupportedFormats("ffmpeg"),
-				icon: AudioLines,
-				title: m["upload.cards.audio"](),
-				status:
-					converters.find((c) => c.name === "ffmpeg")?.status ||
-					"not-ready",
-			},
-			Documents: {
-				formats: getSupportedFormats("pandoc"),
-				icon: BookText,
-				title: m["upload.cards.documents"](),
-				status:
-					converters.find((c) => c.name === "pandoc")?.status ||
-					"not-ready",
-			},
-		};
+	$effect(() => {
+		if (!Settings.instance.settings || files.files.length === 0) return;
 
-		if (!DISABLE_ALL_EXTERNAL_REQUESTS) {
-			output.Video = {
-				formats: getSupportedFormats("vertd"),
-				icon: Film,
-				title: m["upload.cards.video"](),
-				status: $vertdLoaded === true ? "ready" : "not-ready", // not using converter.status for this
-			};
-		}
+		files.files.forEach((file) => {
+			const settings = Settings.instance.settings;
+			if (processedFileIds.has(file.id)) return;
 
-		return output;
-	});
+			const converter = file.findConverter();
+			if (!converter) return;
 
-	const getTooltip = (format: string) => {
-		const converter = converters.find((c) =>
-			c.supportedFormats.some((sf) => sf.name === format),
-		);
+			let category: string | undefined;
+			const isImage = converter.name === "imagemagick";
+			const isAudio = converter.name === "ffmpeg";
+			const isVideo = converter.name === "vertd";
+			const isDocument = converter.name === "pandoc";
 
-		const formatInfo = converter?.supportedFormats.find(
-			(sf) => sf.name === format,
-		);
+			if (isImage) category = "image";
+			else if (isAudio) category = "audio";
+			else if (isVideo) category = "video";
+			else if (isDocument) category = "doc";
+			if (!category) return;
 
-		if (formatInfo) {
-			const direction = formatInfo.fromSupported
-				? m["upload.tooltip.direction_input"]()
-				: m["upload.tooltip.direction_output"]();
-			return m["upload.tooltip.partial_support"]({ direction });
-		}
-		return "";
-	};
+			let targetFormat: string | undefined;
 
-	const getStatusText = (status: WorkerStatus) => {
-		switch (status) {
-			case "downloading":
-				return m["upload.cards.status.downloading"]();
-			case "ready":
-				return m["upload.cards.status.ready"]();
-			default:
-				// "not-ready", "error" and other statuses (somehow)
-				return m["upload.cards.status.not_ready"]();
-		}
-	};
+			// restore saved format (if navigated back to page for example)
+			const savedFormat = $dropdownStates[file.name];
+			if (
+				savedFormat &&
+				savedFormat !== file.from &&
+				categories[category]?.formats.includes(savedFormat)
+			) {
+				targetFormat = savedFormat;
+			} else if (settings.useDefaultFormat) {
+				// else use default format if enabled
+				let defaultFormat: string | undefined;
+				const df = settings.defaultFormat;
+				if (category === "image") defaultFormat = df.image;
+				else if (category === "audio") defaultFormat = df.audio;
+				else if (category === "video") defaultFormat = df.video;
+				else if (category === "doc") defaultFormat = df.document;
 
-	let scrollContainers: HTMLElement[] = $state([]);
-	// svelte-ignore state_referenced_locally
-	let showBlur = $state(Array(Object.keys(worker).length).fill(false));
-
-	onMount(() => {
-		const handleResize = () => {
-			for (let i = 0; i < scrollContainers.length; i++) {
-				// show bottom blur if scrollable
-				const container = scrollContainers[i];
-				if (!container) return;
-				showBlur[i] = container.scrollHeight > container.clientHeight;
+				if (
+					defaultFormat &&
+					defaultFormat !== file.from &&
+					categories[category]?.formats.includes(defaultFormat)
+				) {
+					targetFormat = defaultFormat;
+				}
 			}
-		};
 
-		handleResize();
-		window.addEventListener("resize", handleResize);
+			// or use first available format (or if default format is same as input)
+			if (!targetFormat) {
+				const firstDiff = categories[category]?.formats.find(
+					(f) => f !== file.from,
+				);
+				targetFormat =
+					firstDiff || categories[category]?.formats[0] || "";
+			}
 
-		return () => {
-			window.removeEventListener("resize", handleResize);
-		};
+			file.to = targetFormat;
+			processedFileIds.add(file.id);
+		});
 	});
+
+	const handleSelect = (option: string, file: VertFile) => {
+		file.result = null;
+	};
 </script>
 
-<div class="max-w-6xl w-full mx-auto px-6 md:px-8">
-	<div class="flex items-center justify-center pb-10 md:py-16">
-		<div
-			class="flex items-center h-auto gap-12 md:gap-24 md:flex-row flex-col"
-		>
-			<div class="flex-grow w-full text-center md:text-left">
-				<h1
-					class="text-4xl px-12 md:p-0 md:text-6xl flex-wrap tracking-tight leading-tight md:leading-[72px] mb-4 md:mb-6"
+{#snippet fileItem(file: VertFile, index: number)}
+	{@const currentConverter = file.findConverter()}
+	{@const isImage = currentConverter?.name === "imagemagick"}
+	{@const isAudio = currentConverter?.name === "ffmpeg"}
+	{@const isVideo = currentConverter?.name === "vertd"}
+	{@const isDocument = currentConverter?.name === "pandoc"}
+	<Panel class="flex flex-col min-w-0 gap-4 relative">
+		<div class="flex-shrink-0 h-8 w-full flex items-center gap-2">
+			{#if !converters.length}
+				<Tooltip
+					text={m["convert.tooltips.unknown_file"]()}
+					position="bottom"
 				>
-					{m["upload.title"]()}
-				</h1>
-				<p
-					class="font-normal px-5 md:p-0 text-lg md:text-xl text-black text-muted dynadark:text-muted"
+					<FileQuestionIcon size="24" class="flex-shrink-0" />
+				</Tooltip>
+			{:else if isAudio}
+				<Tooltip
+					text={m["convert.tooltips.audio_file"]()}
+					position="bottom"
 				>
-					{m["upload.subtitle"]()}
-				</p>
+					<AudioLines size="24" class="flex-shrink-0" />
+				</Tooltip>
+			{:else if isVideo}
+				<Tooltip
+					text={m["convert.tooltips.video_file"]()}
+					position="bottom"
+				>
+					<FilmIcon size="24" class="flex-shrink-0" />
+				</Tooltip>
+			{:else if isDocument}
+				<Tooltip
+					text={m["convert.tooltips.document_file"]()}
+					position="bottom"
+				>
+					<BookText size="24" class="flex-shrink-0" />
+				</Tooltip>
+			{:else}
+				<Tooltip
+					text={m["convert.tooltips.image_file"]()}
+					position="bottom"
+				>
+					<ImageIcon size="24" class="flex-shrink-0" />
+				</Tooltip>
+			{/if}
+			<div class="flex-grow overflow-hidden">
+				{#if file.processing}
+					<ProgressBar
+						min={0}
+						max={100}
+						progress={currentConverter?.reportsProgress ||
+						file.isZip()
+							? file.progress
+							: null}
+					/>
+				{:else}
+					<h2
+						class="text-base overflow-hidden text-ellipsis whitespace-nowrap"
+						title={file.name}
+					>
+						{file.name}
+					</h2>
+				{/if}
 			</div>
-			<div class="flex-grow w-full h-72">
-				<Uploader class="w-full h-full" />
-			</div>
+			<button
+				class="flex-shrink-0 w-8 rounded-md hover:bg-hover h-full flex items-center justify-center"
+				onclick={async () => {
+					await file.cancel();
+					files.files = files.files.filter((_, i) => i !== index);
+				}}
+			>
+				<XIcon size="24" class="text-muted" />
+			</button>
 		</div>
-	</div>
-
-	<hr />
-
-	<div class="mt-10 md:mt-16">
-		<h2 class="text-center text-4xl">{m["upload.cards.title"]()}</h2>
-
-		<div class="flex gap-4 mt-8 md:flex-row flex-col">
-			{#if browser}
-				{#each Object.entries(worker) as [key, s], i}
-					{@const Icon = s.icon}
-					<div class="file-category-card w-full flex flex-col gap-4">
-						<div class="file-category-card-inner">
-							<div
-								class={clsx("icon-container", {
-									"bg-accent-blue": key === "Images",
-									"bg-accent-purple": key === "Audio",
-									"bg-accent-green": key === "Documents",
-									"bg-accent-red": key === "Video",
-								})}
-							>
-								<Icon size="20" />
-							</div>
-							<span>{s.title}</span>
-						</div>
-
+		{#if !currentConverter}
+			{#if file.name.startsWith("vertd")}
+				<div
+					class="h-full flex flex-col text-center justify-center text-failure"
+				>
+					<p class="font-body font-bold">
+						{m["convert.errors.cant_convert"]()}
+					</p>
+					<p class="font-normal">
+						{m["convert.errors.vertd_server"]()}
+					</p>
+				</div>
+			{:else}
+				<div
+					class="h-full flex flex-col text-center justify-center text-failure"
+				>
+					<p class="font-body font-bold">
+						{m["convert.errors.cant_convert"]()}
+					</p>
+					<p class="font-normal">
+						{m["convert.errors.unsupported_format"]()}
+					</p>
+				</div>
+			{/if}
+		{:else}
+			{@const formatInfo = currentConverter.supportedFormats.find(
+				(f) => f.name === file.from,
+			)}
+			{@const isLarge = file.isLarge()}
+			{#if formatInfo && !formatInfo.fromSupported}
+				<div
+					class="h-full flex flex-col text-center justify-center text-failure"
+				>
+					<p class="font-body font-bold">
+						{m["convert.errors.cant_convert"]()}
+					</p>
+					<p class="font-normal">
+						{m["convert.errors.format_output_only"]()}
+					</p>
+				</div>
+			{:else if isLarge && !file.supportsStreaming()}
+				<div
+					class="h-full flex flex-col text-center justify-center text-failure"
+				>
+					<p class="font-body font-bold">
+						{m["convert.errors.cant_convert"]()}
+					</p>
+					<p class="font-normal">
+						{m["workers.errors.file_too_large"]({
+							limit: (MAX_ARRAY_BUFFER_SIZE / GB).toFixed(2),
+						})}
+					</p>
+				</div>
+			{:else if currentConverter.status === "downloading"}
+				<div
+					class="h-full flex flex-col text-center justify-center text-failure"
+				>
+					<p class="font-body font-bold">
+						{m["convert.errors.cant_convert"]()}
+					</p>
+					<p class="font-normal">
+						{m["convert.errors.worker_downloading"]({
+							type: isAudio
+								? m["convert.errors.audio"]()
+								: isVideo
+									? "Video"
+									: isDocument
+										? m["convert.errors.doc"]()
+										: m["convert.errors.image"](),
+						})}
+					</p>
+				</div>
+			{:else if currentConverter.status === "error"}
+				<div
+					class="h-full flex flex-col text-center justify-center text-failure"
+				>
+					<p class="font-body font-bold">
+						{m["convert.errors.cant_convert"]()}
+					</p>
+					<p class="font-normal">
+						{m["convert.errors.worker_error"]({
+							type: isAudio
+								? m["convert.errors.audio"]()
+								: isVideo
+									? "Video"
+									: isDocument
+										? m["convert.errors.doc"]()
+										: m["convert.errors.image"](),
+						})}
+					</p>
+				</div>
+			{:else if currentConverter.status === "not-ready"}
+				<div
+					class="h-full flex flex-col text-center justify-center text-failure"
+				>
+					<p class="font-body font-bold">
+						{m["convert.errors.cant_convert"]()}
+					</p>
+					<p class="font-normal">
+						{m["convert.errors.worker_timeout"]({
+							type: isAudio
+								? m["convert.errors.audio"]()
+								: isVideo
+									? "Video"
+									: isDocument
+										? m["convert.errors.doc"]()
+										: m["convert.errors.image"](),
+						})}
+					</p>
+				</div>
+			{:else if isVideo && !$vertdLoaded && !isAudio && !isImage && !isDocument}
+				<div
+					class="h-full flex flex-col text-center justify-center text-failure"
+				>
+					<p class="font-body font-bold">
+						{m["convert.errors.cant_convert"]()}
+					</p>
+					<p class="font-normal">
+						{m["convert.errors.vertd_not_found"]()}
+					</p>
+				</div>
+			{:else}
+				<div class="flex flex-row justify-between">
+					<div
+						class="flex gap-4 w-full h-[152px] overflow-hidden relative"
+					>
 						<div
-							class="file-category-card-content flex-grow relative"
+							class="w-1/2 h-full overflow-hidden rounded-md border border-separator"
 						>
-							<OverlayScrollbarsComponent
-								options={{
-									scrollbars: {
-										autoHide: "move",
-										autoHideDelay: 1500,
-									},
-								}}
-								defer
-							>
+							{#if file.blobUrl}
+								<img
+									class="object-cover w-full h-full"
+									src={file.blobUrl}
+									alt={file.name}
+								/>
+							{:else}
 								<div
-									class="flex flex-col gap-4 h-[12.25rem] relative"
-									bind:this={scrollContainers[i]}
+									class="w-full h-full flex items-center justify-center bg-panel-highlight text-muted"
 								>
-									{#if key === "Video"}
-										<p
-											class="flex tems-center justify-center gap-2"
-										>
-											<Check size="20" />
-											<Tooltip
-												text={m[
-													"upload.tooltip.video_server_processing"
-												]()}
-											>
-												<span>
-													<a
-														href="https://github.com/VERT-sh/VERT/blob/main/docs/VIDEO_CONVERSION.md"
-														target="_blank"
-														rel="noopener noreferrer"
-													>
-														{m[
-															"upload.cards.video_server_processing"
-														]()}
-													</a>
-													<span
-														class="text-red-500 -ml-0.5"
-														>*</span
-													>
-												</span>
-											</Tooltip>
-										</p>
+									{#if isAudio}
+										<FileMusicIcon size="56" />
+									{:else if isVideo}
+										<FileVideo2 size="56" />
+									{:else if isDocument}
+										<BookText size="56" />
 									{:else}
-										<p
-											class="flex tems-center justify-center gap-2"
-										>
-											<Check size="20" />
-											{m[
-												"upload.cards.local_supported"
-											]()}
-										</p>
+										<ImageOffIcon size="56" />
 									{/if}
-									<p>
-										{@html sanitize(m["upload.cards.status.text"]({
-											status: getStatusText(s.status),
-										}))}
-									</p>
-									<div
-										class="flex flex-col items-center relative"
-									>
-										<b
-											>{m[
-												"upload.cards.supported_formats"
-											]()}&nbsp;</b
-										>
-										<p
-											class="flex flex-wrap justify-center leading-tight px-2"
-										>
-											{#each s.formats.split(", ") as format, index}
-												{@const isPartial =
-													format.endsWith("*")}
-												{@const formatName = isPartial
-													? format.slice(0, -1)
-													: format}
-												<span
-													class="text-sm font-normal flex items-center relative"
-												>
-													{#if isPartial}
-														<Tooltip
-															text={getTooltip(
-																formatName,
-															)}
-														>
-															{formatName}<span
-																class="text-red-500"
-																>*</span
-															>
-														</Tooltip>
-													{:else}
-														{formatName}
-													{/if}
-													{#if index < s.formats.split(", ").length - 1}
-														<span>,&nbsp;</span>
-													{/if}
-												</span>
-											{/each}
-										</p>
-									</div>
 								</div>
-							</OverlayScrollbarsComponent>
-							<!-- blur at bottom if scrollable - positioned relative to the card container -->
-							{#if showBlur[i]}
-								<div
-									class="absolute left-0 bottom-0 w-full h-10 pointer-events-none"
-									style={`background: linear-gradient(to top, var(--bg-panel), transparent 100%);`}
-								></div>
 							{/if}
 						</div>
 					</div>
-				{/each}
+					<div
+						class="absolute top-16 right-0 mr-4 pl-2 h-[calc(100%-83px)] w-[calc(50%-38px)] pr-4 pb-1 flex items-center justify-center aspect-square"
+					>
+						<div
+							class="w-[122px] h-fit flex flex-col gap-2 items-center justify-center"
+						>
+							<FormatDropdown
+								{categories}
+								from={file.from}
+								bind:selected={file.to}
+								onselect={(option) =>
+									handleSelect(option, file)}
+								{file}
+							/>
+							<div
+								class="w-full flex items-center justify-between"
+							>
+								<Tooltip
+									text={m["convert.tooltips.convert_file"]()}
+									position="bottom"
+								>
+									<button
+										class="btn highlight p-0 w-12 h-12"
+										disabled={!files.ready}
+										onclick={() => file.convert()}
+									>
+										<RotateCwIcon size="20" />
+									</button>
+								</Tooltip>
+								<Tooltip
+									text={m["convert.tooltips.download_file"]()}
+									position="bottom"
+								>
+									<button
+										class="btn p-0 w-12 h-12"
+										onclick={file.download}
+										disabled={!file.result}
+									>
+										<DownloadIcon size="20" />
+									</button>
+								</Tooltip>
+							</div>
+						</div>
+					</div>
+				</div>
 			{/if}
-		</div>
+		{/if}
+	</Panel>
+{/snippet}
+
+<div class="flex flex-col gap-8">
+	<div class="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+		<h1 class="text-3xl md:text-4xl">{m["convert.page.title"]()}</h1>
+		<p class="eyebrow">
+			<span class="text-accent">INTEGRA</span> · {m[
+				"convert.page.eyebrow"
+			]()}
+		</p>
 	</div>
+
+	<section class="flex flex-col gap-3">
+		<div class="flex flex-wrap items-baseline justify-between gap-x-4">
+			<p class="eyebrow">
+				<span class="text-accent">01</span> / {m[
+					"convert.page.batch"
+				]()}
+			</p>
+			<p class="meta">
+				{m["convert.page.queued"]({ count: files.files.length })}
+			</p>
+		</div>
+		<ConversionPanel />
+	</section>
+
+	<section class="flex flex-col gap-3">
+		<p class="eyebrow">
+			<span class="text-accent">02</span> / {m["convert.page.files"]()}
+		</p>
+		<div
+			class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 auto-rows-[240px] gap-4"
+		>
+			{#each files.files as file, i (file.id)}
+				{@render fileItem(file, i)}
+			{/each}
+			<Uploader class="w-full h-full" />
+		</div>
+	</section>
 </div>
-
-<style lang="postcss">
-	.file-category-card {
-		@apply bg-panel rounded-2xl p-5 shadow-panel relative;
-	}
-
-	.file-category-card p {
-		@apply font-normal text-center text-sm;
-	}
-
-	.file-category-card-inner {
-		@apply flex items-center justify-center gap-3 text-xl;
-	}
-
-	.file-category-card-content {
-		@apply flex flex-col text-center justify-between;
-	}
-
-	.icon-container {
-		@apply p-2 rounded-full text-on-accent;
-	}
-</style>

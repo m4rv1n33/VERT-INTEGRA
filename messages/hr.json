@@ -1,11 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"navbar": {
-		"upload": "Prenesi",
 		"convert": "Pretvori",
 		"settings": "Postavke",
-		"about": "O Stranici",
-		"toggle_theme": "Promjeni izgled"
+		"about": "O Stranici"
 	},
 	"footer": {
 		"copyright": "© {year} VERT.",
@@ -13,36 +11,9 @@
 		"discord_server": "Discord server"
 	},
 	"upload": {
-		"title": "Pretvarač datoteka koji ćeš obožavati.",
-		"subtitle": "Cijelokupna obrada slika, zvuka i dokumenata se odvija na vašem uređaju. Videozapisi se pretvaraju na našim izrazito brzim serverima. Nema nikakvih ograničenja veličine niti reklama i potpuno je open source.",
 		"uploader": {
 			"text": "Ubaci ili klikni da {action}",
 			"convert": "pretvori"
-		},
-		"cards": {
-			"title": "VERT podržava...",
-			"images": "Slike",
-			"audio": "Audio",
-			"documents": "Dokumente",
-			"video": "Video",
-			"video_server_processing": "Server podržan",
-			"local_supported": "Lokalno podržano",
-			"status": {
-				"text": "<b>Status:</b> {status}",
-				"ready": "spremno",
-				"not_ready": "nespremno",
-				"not_initialized": "nije inicijalizirano",
-				"downloading": "preuzimanje...",
-				"initializing": "inicijaliziranje...",
-				"unknown": "nepoznati status"    
-			},
-			"supported_formats": "Podržani formati:"
-		},
-		"tooltip": {
-			"partial_support": "Ovaj format se može pretvoriti u {direction}.",
-			"direction_input": "ulaz (iz)",
-			"direction_output": "izlaz (u)",
-			"video_server_processing": "Videozapisi se uobičajeno prenose na servere za obradu, nauči ovdje kako namjestiti da se događa lokalno."
 		}
 	},
 	"convert": {
@@ -73,7 +44,7 @@
 			"cant_convert": "Ne možemo pretvoriti ovu datoteku.",
 			"vertd_server": "Sunce ti žarko, što ti radiš!? Moraš pokrenuti vertd server!",
 			"unsupported_format": "Podržane su samo slike, videozapisi, audio i dokumenti",
-			"vertd_not_found": "Nismo mogli pronači vertd da započnemo pretvaranje. Jeste li sigurni da je URL točno postavljen?",    
+			"vertd_not_found": "Nismo mogli pronači vertd da započnemo pretvaranje. Jeste li sigurni da je URL točno postavljen?",
 			"worker_downloading": "{type} pretvarač se trenutno koristi, molimo pričekajte malo.",
 			"worker_error": "{type} pretvaraču se javila pogreška pri inicijalizaciji, molimo pokušajte ponovno kasnije.",
 			"worker_timeout": "{type} pretvaraču treba duže nego očekivano da se inicijalizira, molimo još malo pričekajte ili osvježite stranicu.",
@@ -126,7 +97,7 @@
 			"loading": "učitavanje...",
 			"available": "dostupno, commit id {commitId}",
 			"unavailable": "nedostupno (Je li URL točan?)",
-			"description": "<code>vertd</code> projekt je serverski omot za FFmpeg. Ovo omogućuje da pretvarate videozapise sa lakoćom VERTovog web sučelja, dok još uvijek možete iskoristiti snagu vašeg GPU da odradi što brže moguće.",    
+			"description": "<code>vertd</code> projekt je serverski omot za FFmpeg. Ovo omogućuje da pretvarate videozapise sa lakoćom VERTovog web sučelja, dok još uvijek možete iskoristiti snagu vašeg GPU da odradi što brže moguće.",
 			"hosting_info": "Mi držimo javnu instancu za Vašu lakoću, ali je veoma lako hostati na Vašem računalu ili serveru ako znate što radite. Možete preuzeti serverske programe [vertd_link]ovdje[/vertd_link] - Proces namještanja će biti lakši u budućnosti, pa njuškajte malo za nove vijesti!",
 			"instance_url": "URL instance",
 			"url_placeholder": "Na primjer: http://localhost:24153",
