@@ -12,13 +12,13 @@
      the system on the left, what this instance is on the right. -->
 <footer class="w-full border-t border-separator">
 	<div
-		class="w-full max-w-[100rem] mx-auto px-5 py-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 eyebrow"
+		class="w-full max-w-[100rem] mx-auto px-5 py-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-2"
 	>
-		<p class="flex items-center gap-2.5">
+		<p class="brand-small">
 			<span class="dot dot-small" aria-hidden="true"></span>
 			m4rv1n
 		</p>
-		<div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+		<div class="flex flex-wrap items-center gap-x-5 gap-y-2 meta">
 			<a class="hover:text-accent" href={GITHUB_URL_VERT} target="_blank"
 				>{m["footer.source_code"]()}</a
 			>
@@ -27,8 +27,7 @@
 			>
 			{#if commitHash}
 				<a
-					class="hover:text-accent normal-case"
-					style="letter-spacing: 0;"
+					class="hover:text-accent"
 					href="{GITHUB_URL_VERT}/commit/{commitHash}"
 					target="_blank">{commitHash}</a
 				>

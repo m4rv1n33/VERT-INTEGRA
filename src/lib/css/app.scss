@@ -403,6 +403,13 @@ body {
 		height: 0.5rem;
 	}
 
+	// The wordmark as the management panel and the access gate write it:
+	// body font, lower case, slightly tightened. Never uppercased.
+	.brand-small {
+		@apply flex items-center gap-2 font-body text-sm font-semibold normal-case;
+		letter-spacing: -0.025em;
+	}
+
 	code {
 		@apply font-display text-xs bg-panel-highlight rounded px-1 text-foreground;
 	}
