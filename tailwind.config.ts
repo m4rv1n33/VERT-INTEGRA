@@ -57,10 +57,9 @@ export default {
 
 	plugins: [
 		plugin(function ({ addVariant }) {
-			addVariant("dynadark", [
-				":root:not(.light).dark &",
-				"@media (prefers-color-scheme: dark) { :root:not(.light) &",
-			]);
+			// The theme is dark unconditionally, so dynadark always matches.
+			// Keeping the variant means components can stay untouched.
+			addVariant("dynadark", ["&"]);
 		}),
 	],
 } satisfies Config;

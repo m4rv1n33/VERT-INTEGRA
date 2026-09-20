@@ -170,8 +170,10 @@
 	--accent-purple-alt: hsl(264, 100%, 50%);
 	--accent-blue: hsl(220, 100%, 78%);
 	--accent-blue-alt: hsl(220, 100%, 50%);
-	--accent: var(--accent-pink);
-	--accent-alt: var(--accent-pink-alt);
+	// INTEGRA has a single red; --accent-alt exists for gradients and hovers,
+	// so it carries the same value rather than a second hue.
+	--accent: #eb0000;
+	--accent-alt: #eb0000;
 	--accent-green: hsl(140, 70%, 74%);
 	--accent-green-alt: hsl(140, 64%, 42%);
 	--accent-pink-transparent: hsla(303, 100%, 50%, 0);
@@ -181,18 +183,18 @@
 	--accent-green-transparent: hsla(140, 70%, 30%, 0);
 
 	// foregrounds
-	--fg: hsl(0, 0%, 100%);
-	--fg-muted: hsla(0, 0%, 100%, 0.65);
+	--fg: #f4f4f5; // zinc-100
+	--fg-muted: #a1a1aa; // zinc-400
 	--fg-on-accent: hsl(0, 0%, 0%);
 	--fg-on-badge: hsl(0, 0%, 0%);
 	--fg-accent: var(--accent);
 	--fg-failure: var(--accent-red);
 
 	// backgrounds
-	--bg: hsl(220, 5%, 15%);
+	--bg: #09090b; // zinc-950
 
-	--bg-gradient-from: hsla(303, 100%, 50%, 0.1);
-	--bg-gradient-to: hsla(303, 100%, 50%, 0);
+	--bg-gradient-from: rgba(235, 0, 0, 0.1);
+	--bg-gradient-to: rgba(235, 0, 0, 0);
 	--bg-gradient-pink-from: hsla(303, 100%, 50%, 0.1);
 	--bg-gradient-pink-to: hsla(303, 100%, 50%, 0);
 	--bg-gradient-pink-alt-from: var(--accent-pink);
@@ -213,8 +215,8 @@
 	--bg-gradient-green-to: hsla(140, 70%, 30%, 0);
 	--bg-gradient-green-alt-from: var(--accent-green-alt);
 	--bg-gradient-green-alt-to: hsl(140, 70%, 91%);
-	--bg-gradient-image-from: hsla(220, 5%, 12%, 0.5);
-	--bg-gradient-image-to: hsla(220, 5%, 12%, 1);
+	--bg-gradient-image-from: rgba(9, 9, 11, 0.5);
+	--bg-gradient-image-to: rgba(9, 9, 11, 1);
 
 	--bg-gradient: linear-gradient(
 		to bottom,
@@ -276,10 +278,10 @@
 		var(--bg-gradient-image-from),
 		var(--bg-gradient-image-to) 100%
 	);
-	--bg-panel: hsl(220, 4%, 24%);
-	--bg-panel-highlight: hsl(220, 2%, 32%);
-	--bg-separator: hsl(220, 4%, 28%);
-	--bg-button: hsl(220, 6%, 34%);
+	--bg-panel: #18181b; // zinc-900
+	--bg-panel-highlight: #3f3f46; // zinc-700
+	--bg-separator: #27272a; // zinc-800
+	--bg-button: #27272a; // zinc-800
 	--bg-badge: var(--accent-pink);
 
 	--shadow-panel: 0 4px 6px 0 hsla(0, 0%, 0%, 0.15);
@@ -287,22 +289,11 @@
 	color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		@include dark;
-	}
-}
-
-@media (prefers-color-scheme: light) {
-	:root {
-		@include light;
-	}
-}
-
-:root.light {
-	@include light;
-}
-
+// INTEGRA renders in one look, so the dark theme applies unconditionally and
+// prefers-color-scheme is ignored. The light mixin above is kept but unused, so
+// merging upstream changes to it stays a no-op.
+:root,
+:root.light,
 :root.dark {
 	@include dark;
 }
