@@ -2,15 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url(@fontsource/radio-canada-big/600.css);
-@import url("$lib/assets/style/host-grotesk.css");
+@import url(@fontsource-variable/inter/index.css);
+@import url(@fontsource/ibm-plex-mono/400.css);
+@import url(@fontsource/ibm-plex-mono/600.css);
 
 :root {
+	// Inter and IBM Plex Mono, the INTEGRA type pair. "Inter Variable" is the
+	// family name the bundled variable font registers under; "Inter" follows it
+	// so a locally installed static Inter still matches.
 	--font-body:
-		"Host Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
-		"Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-		"Helvetica Neue", sans-serif;
-	--font-display: "Radio Canada Big", var(--font-body);
+		"Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system,
+		sans-serif;
+	--font-display: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
 	--transition: linear(
 		0,
 		0.006,
