@@ -46,15 +46,15 @@
 	// intentionally unused. this is so tailwind can generate the css for these colours as it doesn't detect if it's dynamically loaded
 	// this would lead to the colours not being generated in the final css file by tailwind
 	const colourVariants = [
-		"border-accent-pink-alt",
-		"border-accent-red-alt",
-		"border-accent-purple-alt",
-		"border-accent-blue-alt",
+		"border-l-accent-pink-alt",
+		"border-l-accent-red-alt",
+		"border-l-accent-purple-alt",
+		"border-l-accent-blue-alt",
 	];
 </script>
 
 <div
-	class="flex flex-col max-w-[100%] md:max-w-md p-4 gap-2 bg-accent-{color} border-accent-{color}-alt border-l-4 rounded-lg shadow-md"
+	class="flex flex-col max-w-[100%] md:max-w-md p-4 gap-2 bg-panel border border-separator border-l-4 border-l-accent-{color}-alt rounded-lg"
 	in:fly={{
 		duration: durations.enter,
 		easing: quintOut,
@@ -69,13 +69,13 @@
 	<div class="flex flex-row items-center justify-between w-full gap-4">
 		<div class="flex items-center gap-2">
 			<Icon
-				class="w-6 h-6 text-black flex-shrink-0"
+				class="w-6 h-6 text-accent-{color}-alt flex-shrink-0"
 				size="24"
 				stroke="2"
 				fill="none"
 			/>
 			<p
-				class={clsx("text-black whitespace-pre-wrap", {
+				class={clsx("whitespace-pre-wrap", {
 					"font-normal": !title,
 				})}
 			>
@@ -83,7 +83,7 @@
 			</p>
 		</div>
 		<button
-			class="text-gray-600 hover:text-black flex-shrink-0"
+			class="text-muted hover:text-foreground flex-shrink-0"
 			onclick={() => ToastManager.remove(id)}
 		>
 			<XIcon size="16" />

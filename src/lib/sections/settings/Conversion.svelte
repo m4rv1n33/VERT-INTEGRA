@@ -26,13 +26,13 @@
 	let showAdvanced = $state(false);
 </script>
 
-<Panel class="flex flex-col gap-8 p-6">
+<Panel class="flex flex-col gap-8">
 	<div class="flex flex-col gap-3">
-		<h2 class="text-2xl font-bold">
+		<h2 class="text-xl font-bold">
 			<RefreshCwIcon
 				size="40"
-				class="inline-block -mt-1 mr-2 bg-accent p-2 rounded-full"
-				color="black"
+				class="inline-block -mt-1 mr-2 bg-panel-highlight p-2 rounded-md"
+				color="var(--accent)"
 			/>
 			{m["settings.conversion.title"]()}
 		</h2>
@@ -56,7 +56,7 @@
 			<div class="flex flex-col gap-4">
 				<button
 					onclick={() => (showAdvanced = !showAdvanced)}
-					class="bg-button flex items-center justify-between p-4 rounded-lg text-black dynadark:text-white w-full"
+					class="bg-button flex items-center justify-between p-4 rounded-lg w-full"
 				>
 					<span class="text-base font-bold"
 						>{m["settings.conversion.advanced_settings"]()}</span
@@ -92,11 +92,9 @@
 									<button
 										onclick={() =>
 											(settings.useDefaultFormat = true)}
-										class="btn {$effects
-											? ''
-											: '!scale-100'} {settings.useDefaultFormat
+										class="btn {settings.useDefaultFormat
 											? 'selected'
-											: ''} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+											: ''} flex-1 p-4 rounded-lg flex items-center justify-center"
 									>
 										<PlayIcon
 											size="24"
@@ -108,11 +106,9 @@
 									<button
 										onclick={() =>
 											(settings.useDefaultFormat = false)}
-										class="btn {$effects
+										class="btn {settings.useDefaultFormat
 											? ''
-											: '!scale-100'} {settings.useDefaultFormat
-											? ''
-											: 'selected'} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+											: 'selected'} flex-1 p-4 rounded-lg flex items-center justify-center"
 									>
 										<PauseIcon
 											size="24"
@@ -206,11 +202,9 @@
 									<button
 										onclick={() =>
 											(settings.metadata = true)}
-										class="btn {$effects
-											? ''
-											: '!scale-100'} {settings.metadata
+										class="btn {settings.metadata
 											? 'selected'
-											: ''} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+											: ''} flex-1 p-4 rounded-lg flex items-center justify-center"
 									>
 										<PlayIcon
 											size="24"
@@ -222,11 +216,9 @@
 									<button
 										onclick={() =>
 											(settings.metadata = false)}
-										class="btn {$effects
+										class="btn {settings.metadata
 											? ''
-											: '!scale-100'} {settings.metadata
-											? ''
-											: 'selected'} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+											: 'selected'} flex-1 p-4 rounded-lg flex items-center justify-center"
 									>
 										<PauseIcon
 											size="24"

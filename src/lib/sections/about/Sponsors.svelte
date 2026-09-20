@@ -28,12 +28,12 @@
 	}
 </script>
 
-<Panel class="flex flex-col gap-3 p-6 min-h-[280px]">
-	<h2 class="text-2xl font-bold flex items-center">
+<Panel class="flex flex-col gap-6 min-h-[280px]">
+	<h2 class="text-xl font-bold flex items-center">
 		<div
-			class="rounded-full bg-accent-pink p-2 inline-block mr-3 w-10 h-10"
+			class="rounded-md bg-panel-highlight p-2 inline-block mr-3 w-10 h-10"
 		>
-			<PiggyBankIcon color="black" />
+			<PiggyBankIcon color="var(--accent)" />
 		</div>
 		{m["about.sponsors.title"]()}
 	</h2>
@@ -42,7 +42,7 @@
 			<a
 				href="https://eva.pink"
 				target="_blank"
-				class="w-48 h-24 rounded-2xl px-0 btn gap-2 flex flex-col justify-center items-center"
+				class="w-48 h-24 rounded-lg px-0 btn gap-2 flex flex-col justify-center items-center"
 			>
 				<img
 					src={lily}

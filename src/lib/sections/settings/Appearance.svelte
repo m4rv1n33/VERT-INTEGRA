@@ -94,13 +94,13 @@
 	}
 </script>
 
-<Panel class="flex flex-col gap-8 p-6">
+<Panel class="flex flex-col gap-8">
 	<div class="flex flex-col gap-3">
-		<h2 class="text-2xl font-bold">
+		<h2 class="text-xl font-bold">
 			<PaletteIcon
 				size="40"
-				class="inline-block -mt-1 mr-2 bg-accent-purple p-2 rounded-full"
-				color="black"
+				class="inline-block -mt-1 mr-2 bg-panel-highlight p-2 rounded-md"
+				color="var(--accent)"
 			/>
 			{m["settings.appearance.title"]()}
 		</h2>
@@ -119,9 +119,7 @@
 						<button
 							bind:this={lightElement}
 							onclick={() => setTheme("light")}
-							class="btn {$effects
-								? ''
-								: '!scale-100'} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+							class="btn flex-1 p-4 flex items-center justify-center"
 						>
 							<SunIcon size="24" class="inline-block mr-2" />
 							{m["settings.appearance.light"]()}
@@ -130,9 +128,7 @@
 						<button
 							bind:this={darkElement}
 							onclick={() => setTheme("dark")}
-							class="btn {$effects
-								? ''
-								: '!scale-100'} flex-1 p-4 rounded-lg text-black flex items-center justify-center"
+							class="btn flex-1 p-4 flex items-center justify-center"
 						>
 							<MoonIcon size="24" class="inline-block mr-2" />
 							{m["settings.appearance.dark"]()}
@@ -154,9 +150,7 @@
 						<button
 							bind:this={enableEffectsElement}
 							onclick={() => setEffects(true)}
-							class="btn {$effects
-								? ''
-								: '!scale-100'} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+							class="btn flex-1 p-4 flex items-center justify-center"
 						>
 							<PlayIcon size="24" class="inline-block mr-2" />
 							{m["settings.appearance.enable"]()}
@@ -165,9 +159,7 @@
 						<button
 							bind:this={disableEffectsElement}
 							onclick={() => setEffects(false)}
-							class="btn {$effects
-								? ''
-								: '!scale-100'} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+							class="btn flex-1 p-4 flex items-center justify-center"
 						>
 							<PauseIcon size="24" class="inline-block mr-2" />
 							{m["settings.appearance.disable"]()}

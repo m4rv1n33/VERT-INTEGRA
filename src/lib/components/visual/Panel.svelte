@@ -9,6 +9,7 @@
 	const { class: classList, children }: Props = $props();
 </script>
 
-<div class="bg-panel {classList} p-3 rounded-2.5xl shadow-panel">
+<!-- A surface in the INTEGRA look: hairline border, small radius, no shadow. -->
+<div class="bg-panel border border-separator rounded-lg p-5 {classList}">
 	{@render children?.()}
 </div>

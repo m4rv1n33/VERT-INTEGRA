@@ -11,12 +11,12 @@
 	import { m } from "$lib/paraglide/messages";
 </script>
 
-<Panel class="flex flex-col gap-4 p-6">
-	<h2 class="text-2xl font-bold flex items-center">
+<Panel class="flex flex-col gap-4">
+	<h2 class="text-xl font-bold flex items-center">
 		<div
-			class="rounded-full bg-accent-purple p-2 inline-block mr-3 w-10 h-10"
+			class="rounded-md bg-panel-highlight p-2 inline-block mr-3 w-10 h-10"
 		>
-			<LinkIcon color="black" />
+			<LinkIcon color="var(--accent)" />
 		</div>
 		{m["about.resources.title"]()}
 	</h2>
@@ -25,9 +25,7 @@
 			href={DISCORD_URL}
 			target="_blank"
 			rel="noopener noreferrer"
-			class="btn {$effects
-				? ''
-				: '!scale-100'} flex-1 gap-2 p-4 rounded-full bg-button text-black dynadark:text-white flex items-center justify-center"
+			class="btn flex-1 gap-2 p-4 rounded-md flex items-center justify-center"
 		>
 			<MessageCircleMoreIcon size="24" class="inline-block mr-2" />
 			{m["about.resources.discord"]()}
@@ -36,9 +34,7 @@
 			href={GITHUB_URL_VERT}
 			target="_blank"
 			rel="noopener noreferrer"
-			class="btn {$effects
-				? ''
-				: '!scale-100'} flex-1 gap-2 p-4 rounded-full bg-button text-black dynadark:text-white flex items-center justify-center"
+			class="btn flex-1 gap-2 p-4 rounded-md flex items-center justify-center"
 		>
 			<GithubIcon size="24" class="inline-block mr-2" />
 			{m["about.resources.source"]()}
@@ -47,9 +43,7 @@
 			href="mailto:{CONTACT_EMAIL}"
 			target="_blank"
 			rel="noopener noreferrer"
-			class="btn {$effects
-				? ''
-				: '!scale-100'} flex-1 gap-2 p-4 rounded-full bg-button text-black dynadark:text-white flex items-center justify-center"
+			class="btn flex-1 gap-2 p-4 rounded-md flex items-center justify-center"
 		>
 			<MailIcon size="24" class="inline-block mr-2" />
 			{m["about.resources.email"]()}

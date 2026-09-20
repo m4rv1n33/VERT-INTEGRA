@@ -46,13 +46,13 @@
 	});
 </script>
 
-<Panel class="flex flex-col gap-8 p-6">
+<Panel class="flex flex-col gap-8">
 	<div class="flex flex-col gap-3">
-		<h2 class="text-2xl font-bold">
+		<h2 class="text-xl font-bold">
 			<ServerIcon
 				size="40"
-				class="inline-block -mt-1 mr-2 bg-accent-red p-2 rounded-full overflow-visible"
-				color="black"
+				class="inline-block -mt-1 mr-2 bg-panel-highlight p-2 rounded-md overflow-visible"
+				color="var(--accent)"
 			/>
 			{m["settings.vertd.title"]()}
 		</h2>

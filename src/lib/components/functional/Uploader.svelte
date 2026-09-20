@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { UploadIcon } from "lucide-svelte";
-	import Panel from "../visual/Panel.svelte";
 	import clsx from "clsx";
 	import { onMount } from "svelte";
-	import { effects, files } from "$lib/store/index.svelte";
-	import { converters } from "$lib/converters";
+	import { files } from "$lib/store/index.svelte";
 	import { goto } from "$app/navigation";
-	import { page } from "$app/state";
 	import { m } from "$lib/paraglide/messages";
 
 	type Props = {
@@ -27,7 +24,7 @@
 		if (!fileInput) return;
 		const oldLength = files.files.length;
 		files.add(fileInput.files);
-		if (oldLength !== files.files.length) goto("/convert");
+		if (oldLength !== files.files.length) goto("/");
 	};
 
 	onMount(() => {
@@ -58,25 +55,23 @@
 	onchange={handleFileChange}
 />
 
+<!-- Drop zone: a dashed hairline field that fills with the accent on hover,
+     rather than a filled card. -->
 <button
 	onclick={uploadFiles}
 	bind:this={uploaderButton}
 	class={clsx(
-		`hover:scale-105 active:scale-100 ${$effects ? "" : "!scale-100"} duration-200 ${classList}`,
+		"group flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-strong bg-transparent p-6 transition-colors hover:border-accent hover:bg-hover",
+		classList,
 	)}
 >
-	<Panel
-		class="flex justify-center items-center w-full h-full flex-col pointer-events-none"
-	>
-		<div
-			class="w-16 h-16 bg-accent rounded-full flex items-center justify-center p-4"
-		>
-			<UploadIcon class="w-full h-full text-white" />
-		</div>
-		<h2 class="text-center text-2xl font-semibold mt-4">
-			{m["upload.uploader.text"]({
-				action: m["upload.uploader.convert"]()
-			})}
-		</h2>
-	</Panel>
+	<UploadIcon
+		size="24"
+		class="text-muted transition-colors group-hover:text-accent pointer-events-none"
+	/>
+	<p class="eyebrow text-center pointer-events-none">
+		{m["upload.uploader.text"]({
+			action: m["upload.uploader.convert"](),
+		})}
+	</p>
 </button>

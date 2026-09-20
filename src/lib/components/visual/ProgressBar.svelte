@@ -12,7 +12,7 @@
 	);
 </script>
 
-<div class="w-full h-1 bg-panel-alt rounded-full overflow-hidden relative">
+<div class="w-full h-1 bg-panel-highlight overflow-hidden relative">
 	<div
 		class="h-full bg-accent absolute left-0 top-0"
 		class:percentless-animation={progress === null}

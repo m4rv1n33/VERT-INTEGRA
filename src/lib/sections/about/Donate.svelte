@@ -182,13 +182,13 @@
 	});
 </script>
 
-<Panel class="flex flex-col gap-8 p-6">
+<Panel class="flex flex-col gap-8">
 	<div class="flex flex-col gap-3">
-		<h2 class="text-2xl font-bold flex items-center">
+		<h2 class="text-xl font-bold flex items-center">
 			<div
-				class="rounded-full bg-accent-red p-2 inline-block mr-3 w-10 h-10"
+				class="rounded-md bg-panel-highlight p-2 inline-block mr-3 w-10 h-10"
 			>
-				<HeartIcon color="black" />
+				<HeartIcon color="var(--accent)" />
 			</div>
 			{m["about.donate.title"]()}
 		</h2>
@@ -213,10 +213,7 @@
 				onclick={() => (type = "one-time")}
 				class={clsx(
 					"btn flex-1 p-4 rounded-lg flex items-center justify-center",
-					{
-						"!scale-100": !$effects,
-						"bg-accent-red text-black": type === "one-time",
-					},
+					{ highlight: type === "one-time" },
 				)}
 			>
 				<HandCoinsIcon size="24" class="inline-block mr-2" />
@@ -228,10 +225,7 @@
 				onclick={() => (type = "monthly")}
 				class={clsx(
 					"btn flex-1 p-4 rounded-lg flex items-center justify-center",
-					{
-						"!scale-100": !$effects,
-						"bg-accent-red text-black": type === "monthly",
-					},
+					{ highlight: type === "monthly" },
 				)}
 			>
 				<CalendarHeartIcon size="24" class="inline-block mr-2" />
@@ -244,10 +238,7 @@
 					onclick={() => amountClick(preset)}
 					class={clsx(
 						"btn p-4 rounded-lg flex items-center justify-center",
-						{
-							"!scale-100": !$effects,
-							"bg-accent-red text-black": amount === preset,
-						},
+						{ highlight: amount === preset },
 					)}
 					style={i === 2 ? "grid-column: 3;" : ""}
 				>
@@ -276,14 +267,11 @@
 				}
 			}}
 			onclick={paymentClick}
-			class={clsx(
-				"btn flex-1 p-3 relative rounded-3xl bg-accent-red border-2 border-accent-red h-14 text-black",
-				{
-					"h-[450px] rounded-2xl bg-transparent cursor-auto !scale-100 -mt-10 -mb-2":
-						paymentState !== "prepay",
-					"!scale-100": !$effects,
-				},
-			)}
+			class={clsx("btn highlight flex-1 p-3 relative h-14", {
+				"h-[450px] rounded-lg bg-transparent cursor-auto !scale-100 -mt-10 -mb-2":
+					paymentState !== "prepay",
+				"!scale-100": !$effects,
+			})}
 			style="transition: height {payDuration}ms {transition}, border-radius {payDuration}ms {transition}, background-color {payDuration}ms {transition}, transform {payDuration}ms {transition}, margin {payDuration}ms {transition}; will-change: height, border-radius, background-color, transform, margin;"
 		>
 			<div class="grid grid-cols-1 grid-rows-1 w-full h-full">
@@ -314,7 +302,7 @@
 								disabled={!stripe ||
 									!clientSecret ||
 									!enablePay}
-								class="btn w-full h-12 bg-accent-red text-black rounded-full mt-4"
+								class="btn highlight w-full h-12 mt-4"
 								onclick={donate}
 							>
 								{m["about.donate.donate_amount"]({

@@ -45,10 +45,7 @@
 	{/if}
 	{#if extension}
 		<div class="absolute right-0 top-0 bottom-0 flex items-center px-4">
-			<span
-				class="text-sm bg-button text-black dynadark:text-white px-2 py-1 rounded"
-				>{extension}</span
-			>
+			<span class="text-sm bg-button px-2 py-1 rounded">{extension}</span>
 		</div>
 	{/if}
 </div>

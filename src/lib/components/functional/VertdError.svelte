@@ -81,18 +81,18 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<p class="text-black">{m["convert.errors.vertd_generic_body"]()}</p>
+	<p>{m["convert.errors.vertd_generic_body"]()}</p>
 	<div class="flex flex-col gap-2">
 		<button
 			onclick={showDetails}
-			class="btn rounded-lg h-fit py-2 w-full bg-accent-blue text-black"
+			class="btn h-fit py-2 w-full"
 			disabled={submitting}
 			>{m["convert.errors.vertd_generic_view"]()}</button
 		>
 		<div class="flex gap-4">
 			<button
 				onclick={submit}
-				class="btn rounded-lg h-fit py-2 w-full bg-accent-red-alt text-white"
+				class="btn highlight h-fit py-2 w-full"
 				disabled={submitting}
 				>{m["convert.errors.vertd_generic_yes"]()}</button
 			>

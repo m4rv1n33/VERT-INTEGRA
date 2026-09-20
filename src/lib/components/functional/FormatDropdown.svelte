@@ -354,7 +354,7 @@
 	bind:this={dropdown}
 >
 	<button
-		class="relative flex items-center justify-center w-full font-display px-3 py-3.5 bg-button rounded-full overflow-hidden cursor-pointer focus:!outline-none
+		class="relative flex items-center justify-center w-full font-display text-sm px-3 py-2.5 border border-strong hover:border-muted rounded-md overflow-hidden cursor-pointer focus:!outline-none
 		{disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}"
 		onclick={() => clickDropdown()}
 		{disabled}
@@ -404,8 +404,8 @@
 			}}
 			class={clsx(
 				$isMobile
-					? "fixed inset-x-0 bottom-0 w-full z-[200] shadow-xl bg-panel-alt shadow-black/25 rounded-t-2xl overflow-hidden"
-					: "min-w-full shadow-xl bg-panel-alt shadow-black/25 absolute top-full mt-2 z-50 rounded-2xl overflow-hidden",
+					? "fixed inset-x-0 bottom-0 w-full z-[200] bg-panel border border-separator rounded-t-lg overflow-hidden"
+					: "min-w-full bg-panel border border-separator shadow-lg shadow-black/40 absolute top-full mt-2 z-50 rounded-md overflow-hidden",
 				!$isMobile && {
 					"w-[320%]": dropdownSize === "large",
 					"w-[250%]": dropdownSize === "default",

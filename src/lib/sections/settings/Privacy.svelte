@@ -123,13 +123,13 @@
 	});
 </script>
 
-<Panel class="flex flex-col gap-8 p-6">
+<Panel class="flex flex-col gap-8">
 	<div class="flex flex-col gap-3">
-		<h2 class="text-2xl font-bold">
+		<h2 class="text-xl font-bold">
 			<ChartColumnIcon
 				size="40"
-				class="inline-block -mt-1 mr-2 bg-accent-blue p-2 rounded-full"
-				color="black"
+				class="inline-block -mt-1 mr-2 bg-panel-highlight p-2 rounded-md"
+				color="var(--accent)"
 			/>
 			{m["settings.privacy.title"]()}
 		</h2>
@@ -155,11 +155,9 @@
 						<div class="flex gap-3 w-full">
 							<button
 								onclick={() => (settings.plausible = true)}
-								class="btn {$effects
-									? ''
-									: '!scale-100'} {settings.plausible
+								class="btn {settings.plausible
 									? 'selected'
-									: ''} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+									: ''} flex-1 p-4 rounded-lg flex items-center justify-center"
 							>
 								<PlayIcon size="24" class="inline-block mr-2" />
 								{m["settings.privacy.opt_in"]()}
@@ -167,11 +165,9 @@
 
 							<button
 								onclick={() => (settings.plausible = false)}
-								class="btn {$effects
+								class="btn {settings.plausible
 									? ''
-									: '!scale-100'} {settings.plausible
-									? ''
-									: 'selected'} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+									: 'selected'} flex-1 p-4 rounded-lg flex items-center justify-center"
 							>
 								<PauseIcon
 									size="24"
@@ -227,9 +223,7 @@
 				<div class="flex gap-3 w-full">
 					<button
 						onclick={loadCacheInfo}
-						class="btn {$effects
-							? ''
-							: '!scale-100'} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+						class="btn flex-1 p-4 rounded-lg flex items-center justify-center"
 						disabled={isLoadingCache}
 					>
 						<RefreshCwIcon size="24" class="inline-block mr-2" />
@@ -237,9 +231,7 @@
 					</button>
 					<button
 						onclick={clearCache}
-						class="btn {$effects
-							? ''
-							: '!scale-100'} flex-1 p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+						class="btn flex-1 p-4 rounded-lg flex items-center justify-center"
 						disabled={isLoadingCache}
 					>
 						<Trash2Icon size="24" class="inline-block mr-2" />
@@ -260,9 +252,7 @@
 
 				<button
 					onclick={clearAllData}
-					class="btn {$effects
-						? ''
-						: '!scale-100'} w-full p-4 rounded-lg text-black dynadark:text-white flex items-center justify-center"
+					class="btn w-full p-4 rounded-lg flex items-center justify-center"
 					disabled={isLoadingCache}
 				>
 					<Trash2Icon size="24" class="inline-block mr-2" />

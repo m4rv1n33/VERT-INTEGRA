@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { effects, files, isMobile } from "$lib/store/index.svelte";
+	import { files, isMobile } from "$lib/store/index.svelte";
 	import { FolderArchiveIcon, RefreshCw, Trash2Icon } from "lucide-svelte";
 	import Panel from "../visual/Panel.svelte";
 	import Dropdown from "./Dropdown.svelte";
@@ -22,33 +22,27 @@
 		>
 			<button
 				onclick={() => files.convertAll()}
-				class="btn {$effects
-					? ''
-					: '!scale-100'} highlight flex gap-3 max-md:w-full md:max-w-[15.5rem]"
+				class="btn highlight max-md:w-full md:max-w-[15.5rem]"
 				disabled={!files.ready}
 			>
-				<RefreshCw size="24" />
+				<RefreshCw size="18" />
 				<p>{m["convert.panel.convert_all"]()}</p>
 			</button>
 			<button
-				class="btn {$effects
-					? ''
-					: '!scale-100'} flex gap-3 max-md:w-full md:max-w-[15.5rem]"
+				class="btn max-md:w-full md:max-w-[15.5rem]"
 				disabled={!files.ready || !files.results}
 				onclick={() => files.downloadAll()}
 			>
-				<FolderArchiveIcon size="24" />
+				<FolderArchiveIcon size="18" />
 				<p>{m["convert.panel.download_all"]()}</p>
 			</button>
 			{#if $isMobile}
 				<button
-					class="btn p-4 {$effects
-						? ''
-						: '!scale-100'} flex gap-3 max-md:w-full"
+					class="btn max-md:w-full"
 					disabled={files.files.length === 0}
 					onclick={() => (files.files = [])}
 				>
-					<Trash2Icon size="24" />
+					<Trash2Icon size="18" />
 					<p>{m["convert.panel.remove_all"]()}</p>
 				</button>
 			{:else}
@@ -57,20 +51,18 @@
 					position="right"
 				>
 					<button
-						class="btn p-4 {$effects
-							? ''
-							: '!scale-100'} flex gap-3 max-md:w-full"
+						class="btn w-10 p-0"
 						disabled={files.files.length === 0}
 						onclick={() => (files.files = [])}
 					>
-						<Trash2Icon size="24" />
+						<Trash2Icon size="18" />
 					</button>
 				</Tooltip>
 			{/if}
 		</div>
-		<div class="w-full bg-separator h-0.5 flex md:hidden"></div>
+		<div class="w-full bg-separator h-px flex md:hidden"></div>
 		<div class="flex items-center gap-2">
-			<p class="whitespace-normal text-xl text-right w-full">
+			<p class="eyebrow whitespace-nowrap">
 				{m["convert.panel.set_all_to"]()}
 			</p>
 			<div class="w-48 md:max-w-[6.5rem]">

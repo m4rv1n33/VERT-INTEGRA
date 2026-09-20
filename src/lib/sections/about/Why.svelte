@@ -5,12 +5,12 @@
 	import { sanitize } from "$lib/store/index.svelte";
 </script>
 
-<Panel class="flex flex-col gap-3 p-6">
-	<h2 class="text-2xl font-bold flex items-center">
+<Panel class="flex flex-col gap-3">
+	<h2 class="text-xl font-bold flex items-center">
 		<div
-			class="rounded-full bg-accent-pink p-2 inline-block mr-3 w-10 h-10"
+			class="rounded-md bg-panel-highlight p-2 inline-block mr-3 w-10 h-10"
 		>
-			<MessageCircleQuestionIcon color="black" />
+			<MessageCircleQuestionIcon color="var(--accent)" />
 		</div>
 		{m["about.why.title"]()}
 	</h2>

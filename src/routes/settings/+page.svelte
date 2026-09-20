@@ -3,7 +3,6 @@
 	import { log } from "$lib/util/logger";
 	import * as Settings from "$lib/sections/settings/index.svelte";
 	import { PUB_PLAUSIBLE_URL } from "$env/static/public";
-	import { SettingsIcon } from "lucide-svelte";
 	import { onMount } from "svelte";
 	import { m } from "$lib/paraglide/messages";
 	import { ToastManager } from "$lib/util/toast.svelte";
@@ -53,15 +52,15 @@
 	});
 </script>
 
-<div class="flex flex-col h-full items-center">
-	<h1 class="hidden md:block text-[40px] tracking-tight leading-[72px] mb-6">
-		<SettingsIcon size="40" class="inline-block -mt-2 mr-2" />
-		{m["settings.title"]()}
-	</h1>
+<div class="flex flex-col gap-8">
+	<div class="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+		<h1 class="text-3xl md:text-4xl">{m["settings.title"]()}</h1>
+		<p class="eyebrow">
+			<span class="text-accent">INTEGRA</span> · convert
+		</p>
+	</div>
 
-	<div
-		class="w-full max-w-[1280px] flex flex-col md:flex-row gap-4 p-4 md:px-4 md:py-0"
-	>
+	<div class="w-full flex flex-col md:flex-row gap-4">
 		<div class="flex flex-col gap-4 flex-1">
 			<Settings.Conversion bind:settings />
 			{#if !DISABLE_ALL_EXTERNAL_REQUESTS}

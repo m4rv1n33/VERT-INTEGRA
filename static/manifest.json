@@ -1,11 +1,11 @@
 {
-	"name": "VERT",
-	"short_name": "VERT",
-	"description": "The file converter you'll love",
+	"name": "INTEGRA Convert",
+	"short_name": "Convert",
+	"description": "File converter on the INTEGRA homelab",
 	"start_url": "/",
 	"display": "standalone",
-	"background_color": "#ffffff",
-	"theme_color": "#F2ABEE",
+	"background_color": "#09090b",
+	"theme_color": "#09090b",
 	"icons": [
 		{
 			"src": "lettermark.jpg",

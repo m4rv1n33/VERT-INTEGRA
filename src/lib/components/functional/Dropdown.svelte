@@ -57,15 +57,13 @@
 	bind:this={dropdown}
 >
 	<button
-		class="font-display w-full {settingsStyle
+		class="font-display text-sm w-full {settingsStyle
 			? 'justify-between'
 			: 'justify-center'} overflow-hidden relative cursor-pointer {settingsStyle
 			? 'px-4'
-			: 'px-3'} py-3.5 bg-button {disabled
+			: 'px-3'} py-2.5 border border-strong hover:border-muted {disabled
 			? 'opacity-50 cursor-auto'
-			: 'cursor-pointer'} flex items-center {settingsStyle
-			? 'rounded-xl'
-			: 'rounded-full'} focus:!outline-none"
+			: 'cursor-pointer'} flex items-center rounded-md focus:!outline-none"
 		onclick={toggle}
 		onmouseenter={() => (hover = true)}
 		onmouseleave={() => (hover = false)}

@@ -51,10 +51,12 @@
 	</div>
 {/snippet}
 
-<Panel class="flex flex-col gap-8 p-6">
-	<h2 class="text-2xl font-bold flex items-center">
-		<div class="rounded-full bg-blue-300 p-2 inline-block mr-3 w-10 h-10">
-			<HeartHandshakeIcon color="black" />
+<Panel class="flex flex-col gap-8">
+	<h2 class="text-xl font-bold flex items-center">
+		<div
+			class="rounded-md bg-panel-highlight p-2 inline-block mr-3 w-10 h-10"
+		>
+			<HeartHandshakeIcon color="var(--accent)" />
 		</div>
 		{m["about.credits.title"]()}
 	</h2>

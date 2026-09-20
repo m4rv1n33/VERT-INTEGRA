@@ -30,7 +30,7 @@
 </script>
 
 <div
-	class="flex flex-col items-center justify-between w-full max-w-sm p-4 gap-6 bg-panel border-accent-{color}-alt rounded-lg shadow-md"
+	class="flex flex-col items-center justify-between w-full max-w-sm p-5 gap-6 bg-panel border border-separator rounded-lg shadow-lg shadow-black/40"
 	in:fly={{
 		duration,
 		easing: quintOut,
@@ -45,9 +45,9 @@
 	<div class="flex justify-between w-full items-center">
 		<div class="flex items-center gap-3">
 			<div
-				class="rounded-full bg-accent-{color} p-2 inline-block w-8 h-8"
+				class="rounded-md bg-panel-highlight p-2 inline-block w-8 h-8"
 			>
-				<Icon size="16" color="black" />
+				<Icon size="16" color="var(--accent)" />
 			</div>
 			<p class="text-lg font-semibold">{title}</p>
 		</div>
@@ -65,10 +65,7 @@
 	<div class="flex flex-row items-center gap-4 w-full">
 		{#each buttons as { text, action }, i}
 			<button
-				class="hover:scale-105 active:scale-100 duration-200 flex items-center gap-2 p-2 rounded-md {i ===
-				1
-					? `bg-accent-${color} text-black`
-					: 'bg-button text-black dynadark:text-white'} px-6"
+				class="btn {i === 1 ? 'highlight' : ''}"
 				onclick={() => {
 					action();
 					removeDialog(id);
