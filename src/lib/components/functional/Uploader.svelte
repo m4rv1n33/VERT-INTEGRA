@@ -71,7 +71,7 @@
 		<div
 			class="w-16 h-16 bg-accent rounded-full flex items-center justify-center p-4"
 		>
-			<UploadIcon class="w-full h-full text-on-accent" />
+			<UploadIcon class="w-full h-full text-white" />
 		</div>
 		<h2 class="text-center text-2xl font-semibold mt-4">
 			{m["upload.uploader.text"]({
