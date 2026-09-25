@@ -22,6 +22,10 @@
 	import { categories } from "$lib/converters";
 	import clsx from "clsx";
 
+	// Without vertd there is no video output format, so there is nothing to
+	// pick a default from.
+	const hasVideoFormats = categories.video.formats.length > 0;
+
 	const { settings = $bindable() }: { settings: ISettings } = $props();
 	let showAdvanced = $state(false);
 </script>
@@ -119,7 +123,9 @@
 								</div>
 							</div>
 							<div
-								class="grid gap-3 grid-cols-2 md:grid-cols-4"
+								class="grid gap-3 grid-cols-2 {hasVideoFormats
+									? 'md:grid-cols-4'
+									: 'md:grid-cols-3'}"
 								class:opacity-50={!settings.useDefaultFormat}
 							>
 								<div class="flex flex-col gap-2">
@@ -152,21 +158,23 @@
 										disabled={!settings.useDefaultFormat}
 									/>
 								</div>
-								<div class="flex flex-col gap-2">
-									<p class="text-sm font-bold">
-										{m[
-											"settings.conversion.default_format_video"
-										]()}
-									</p>
-									<FormatDropdown
-										categories={{ video: categories.video }}
-										from={".mp4"}
-										bind:selected={
-											settings.defaultFormat.video
-										}
-										disabled={!settings.useDefaultFormat}
-									/>
-								</div>
+								{#if hasVideoFormats}
+									<div class="flex flex-col gap-2">
+										<p class="text-sm font-bold">
+											{m[
+												"settings.conversion.default_format_video"
+											]()}
+										</p>
+										<FormatDropdown
+											categories={{ video: categories.video }}
+											from={".mp4"}
+											bind:selected={
+												settings.defaultFormat.video
+											}
+											disabled={!settings.useDefaultFormat}
+										/>
+									</div>
+								{/if}
 								<div class="flex flex-col gap-2">
 									<p class="text-sm font-bold">
 										{m[

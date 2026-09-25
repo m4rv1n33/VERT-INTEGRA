@@ -92,6 +92,12 @@
 		);
 		if (from === ".gif") finalCategories.push("video");
 
+		// a category with no output formats (video without vertd) would only
+		// show an empty tab
+		finalCategories = finalCategories.filter(
+			(cat) => categories[cat]?.formats.length > 0,
+		);
+
 		// filter out categories that can't handle large files (due to browser/device limitations)
 		if (file && file.isLarge()) {
 			// if file is large video, disable audio conversion
